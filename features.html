@@ -16,9 +16,9 @@
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.72);
       --muted2: rgba(255,255,255,.55);
-      --accent:#a855f7;     /* purple */
-      --accent2:#22c55e;    /* green */
-      --accent3:#60a5fa;    /* blue */
+      --accent:#a855f7;
+      --accent2:#22c55e;
+      --accent3:#60a5fa;
       --shadow: 0 20px 60px rgba(0,0,0,.55);
       --radius: 20px;
       --radius2: 26px;
@@ -50,7 +50,7 @@
       position:sticky; top:14px; z-index:5;
     }
     .brand{display:flex; align-items:center; gap:14px; padding-left:6px}
-    .brand img{width:70px; height:70px;(--stroke)}
+    .brand img{width:70px; height:70px}
     .brand b{letter-spacing:.2px}
     .nav{display:flex; gap:10px; align-items:center}
     .chip{
@@ -75,86 +75,7 @@
       background: linear-gradient(90deg, rgba(96,165,250,.35), rgba(34,197,94,.12));
       box-shadow: 0 0 18px rgba(96,165,250,.35);
     }
-    
-    .hero{
-      margin-top:26px;
-      border-radius: var(--radius2);
-      border:1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
-    }
-    .hero::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background:
-        radial-gradient(700px 300px at 20% 10%, rgba(168,85,247,.35), transparent 60%),
-        radial-gradient(700px 350px at 80% 0%, rgba(96,165,250,.22), transparent 65%),
-        radial-gradient(600px 350px at 60% 100%, rgba(34,197,94,.16), transparent 60%);
-      filter: blur(10px);
-      opacity:.9;
-      pointer-events:none;
-    }
-    .hero-inner{
-      position:relative;
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:18px;
-      padding:28px;
-      align-items:center;
-    }
-    @media (max-width: 920px){
-      .hero-inner{grid-template-columns:1fr; padding:22px}
-    }
-    .kicker{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.18);
-      color:var(--muted);
-      font-weight:600;
-      letter-spacing:.2px;
-      width:fit-content;
-    }
-    h1{
-      margin:14px 0 10px;
-      font-size: 44px;
-      line-height:1.05;
-      letter-spacing:.3px;
-    }
-    @media (max-width: 920px){ h1{font-size: 38px} }
-    .sub{color:var(--muted); font-size:17px; line-height:1.55; max-width:52ch}
-    .cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:10px;
-      padding:12px 16px;
-      border-radius:14px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.06);
-      text-decoration:none;
-      font-weight:800;
-      letter-spacing:.2px;
-      transition: transform .15s ease, background .15s ease, border-color .15s ease;
-    }
-    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.22)}
-    .btn.primary{
-      border-color: rgba(168,85,247,.7);
-      background: linear-gradient(90deg, rgba(168,85,247,.35), rgba(96,165,250,.22));
-    }
-    .btn.green{
-      border-color: rgba(34,197,94,.55);
-      background: linear-gradient(90deg, rgba(34,197,94,.25), rgba(96,165,250,.12));
-    }
-    .hero-art{
-      border-radius: var(--radius);
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.22);
-      overflow:hidden;
-      position:relative;
-    }
-    .hero-art img{width:100%; height:auto; display:block}
+
     .grid{
       margin-top:20px;
       display:grid;
@@ -181,46 +102,18 @@
     }
     .section-inner{padding:22px}
     .section h2{margin:0 0 10px; font-size:22px}
-    .steps{
-      display:grid; grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-      margin-top:12px;
-    }
-    @media (max-width: 920px){ .steps{grid-template-columns:1fr} }
-    .step{
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      padding:14px 14px 12px;
-    }
-    .step b{display:block; margin-bottom:6px}
-    .step span{color:var(--muted); line-height:1.5; font-size:14.5px}
-    .support{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:14px;
-      align-items:center;
-    }
-    @media (max-width: 920px){ .support{grid-template-columns:1fr} }
-    .support img{
-      width:100%;
+    .hero-art{
       border-radius: var(--radius);
       border:1px solid rgba(255,255,255,.14);
-      display:block;
+      background: rgba(0,0,0,.22);
+      overflow:hidden;
     }
+    .hero-art img{width:100%; height:auto; display:block}
     footer{
       margin-top:26px;
       color:var(--muted2);
       font-size:13px;
       text-align:center;
-    }
-    code{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 12.5px;
-      background: rgba(0,0,0,.26);
-      padding:2px 6px;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:8px;
     }
   </style>
 </head>
@@ -235,7 +128,6 @@
           <span style="color:var(--muted2); font-size:12.5px;">FiveM sales logs → live leaderboard + support inbox</span>
         </div>
 
-        <!-- MOVED HERE -->
         <a class="chip primary" href="https://tinyurl.com/SalesLeaderBoard" target="_blank" rel="noopener" style="margin-left:14px;">
           Get the Bot
         </a>
@@ -244,60 +136,69 @@
       <div class="nav">
         <a class="chip" href="/index">Home</a>
         <a class="chip secondary" href="/features">Features</a>
-        <a class="chip" href="#install">Setup</a>
-        <a class="chip" href="#support">Support</a>
+        <a class="chip" href="index.html#install">Setup</a>
+        <a class="chip" href="index.html#support">Support</a>
       </div>
     </div>
 
-    <section class="hero" id="top">
-      <div class="hero-inner">
-        <div>
-          <div class="kicker">🚀 Self-Hosted • Free Trial Available • Built for FiveM business owners</div>
-          <h1>Sales LeaderBoard Bot</h1>
-          <p class="sub">
-            A quality-of-life Discord bot that tracks sales, ranks top sellers, posts a live leaderboard, and provides support via DM.
-          </p>
+    <!-- FEATURES CONTENT -->
+    <section class="section" style="margin-top:22px;">
+      <div class="section-inner">
+        <h2>Live Tracker</h2>
+        <p style="color:var(--muted); line-height:1.55; margin:0 0 14px;">
+          Displays live sales totals and top sellers. Supports bonus pools and payouts.
+        </p>
 
-          <div class="cta-row">
-            <a class="btn green" href="#setup">⚙️ Quick Setup</a>
-            <a class="btn" href="#video">🎥 Video Tutorial</a>
+        <div class="grid" style="margin-top:0;">
+          <div class="card">
+            <h3>Without Bonuses</h3>
+            <p>Clean leaderboard view with sales totals only.</p>
+            <div class="hero-art" style="margin-top:12px;">
+              <img src="assets/feature-live-no-bonus.png" alt="Live tracker without bonuses" />
+            </div>
           </div>
 
-          <p style="margin:14px 0 0; color:var(--muted2); line-height:1.55;">
-            Contributions help cover hosting + ongoing development. Thank you for supporting the project.
-          </p>
-        </div>
+          <div class="card">
+            <h3>With Bonuses</h3>
+            <p>Bonus pool enabled with payout breakdowns.</p>
+            <div class="hero-art" style="margin-top:12px;">
+              <img src="assets/feature-live-with-bonus.png" alt="Live tracker with bonuses" />
+            </div>
+          </div>
 
-        <div class="hero-art">
-          <img src="assets/intro-hero.png" alt="Sales LeaderBoard Bot intro graphic" />
+          <div class="card">
+            <h3>Auto-Updates</h3>
+            <p>New invoice logs update the leaderboard automatically.</p>
+            <div class="hero-art" style="margin-top:12px;">
+              <img src="assets/feature-live-autoupdate.png" alt="Live tracker auto updates" />
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="grid" id="features">
+    <section class="section">
+      <div class="section-inner">
+        <h2>Sales Settings Menu</h2>
+        <p style="color:var(--muted); line-height:1.55; margin:0 0 14px;">
+          Configure tracking channels, leaderboard style, bonus options, and other server settings.
+        </p>
 
-      test stuff
-      
+        <div class="hero-art">
+          <img src="assets/feature-sales-settings.png" alt="Sales settings menu" />
+        </div>
+      </div>
     </section>
 
-    <section class="section" id="support">
+    <section class="section">
       <div class="section-inner">
-        <div class="support">
-          <div>
-            <h2>test stuff</h2>
-            <p style="color:var(--muted); line-height:1.55; margin-top:8px;">
-              test stuff
-            </p>
-            <p style="color:var(--muted2); line-height:1.55;">
-              test stuff
-            </p>
-            <div class="cta-row">
-              <a class="btn green" href="test stuff" target="_blank" rel="noopener"> test stuff </a>
-            </div>
-          </div>
-          <div>
-            <img src="assets/outro-support.png" alt="Support graphic" />
-          </div>
+        <h2>Bonus Menu</h2>
+        <p style="color:var(--muted); line-height:1.55; margin:0 0 14px;">
+          Turn on bonuses, set pools, and view payout logic at a glance.
+        </p>
+
+        <div class="hero-art">
+          <img src="assets/feature-bonus-menu.png" alt="Bonus menu" />
         </div>
       </div>
     </section>
