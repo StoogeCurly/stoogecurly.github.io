@@ -1,140 +1,312 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sales LeaderBoard Bot</title>
+  <meta name="description" content="A quality-of-life Discord bot for FiveM business owners who receive sales logs." />
 
-<title>Features – Sales LeaderBoard Bot</title>
-
-<style>
-:root{
-  --bg0:#070612;
-  --bg1:#130a2a;
-  --glass: rgba(255,255,255,.08);
-  --stroke: rgba(255,255,255,.14);
-  --text: rgba(255,255,255,.92);
-  --muted: rgba(255,255,255,.72);
-  --muted2: rgba(255,255,255,.55);
-  --accent:#a855f7;
-  --accent2:#22c55e;
-  --accent3:#60a5fa;
-  --shadow: 0 20px 60px rgba(0,0,0,.55);
-  --radius:20px;
-  --radius2:26px;
-  --max:1200px;
-}
-
-*{box-sizing:border-box}
-body{
-  margin:0;
-  color:var(--text);
-  font-family:system-ui;
-  background:
-    radial-gradient(1000px 600px at 20% 10%, rgba(168,85,247,.3), transparent 60%),
-    radial-gradient(900px 500px at 80% 20%, rgba(96,165,250,.25), transparent 60%),
-    linear-gradient(180deg,var(--bg0),var(--bg1));
-}
-
-.wrap{max-width:var(--max);margin:auto;padding:40px 20px}
-
-h1{margin:0 0 10px;font-size:38px}
-.sub{color:var(--muted);max-width:60ch}
-
-.grid{
-  margin-top:30px;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:16px;
-}
-
-@media(max-width:900px){
-  .grid{grid-template-columns:1fr}
-}
-
-.card{
-  border-radius:var(--radius);
-  border:1px solid var(--stroke);
-  background:rgba(255,255,255,.06);
-  box-shadow:var(--shadow);
-  padding:18px;
-}
-
-.card h3{margin:0 0 6px}
-.card p{margin:0;color:var(--muted);line-height:1.5}
-
-.back{
-  display:inline-block;
-  margin-top:30px;
-  padding:12px 16px;
-  border-radius:14px;
-  border:1px solid var(--stroke);
-  text-decoration:none;
-  color:white;
-}
-
-.back:hover{background:rgba(255,255,255,.08)}
-</style>
+  <style>
+    :root{
+      --bg0:#070612;
+      --bg1:#130a2a;
+      --glass: rgba(255,255,255,.08);
+      --glass2: rgba(255,255,255,.12);
+      --stroke: rgba(255,255,255,.14);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --muted2: rgba(255,255,255,.55);
+      --accent:#a855f7;     /* purple */
+      --accent2:#22c55e;    /* green */
+      --accent3:#60a5fa;    /* blue */
+      --shadow: 0 20px 60px rgba(0,0,0,.55);
+      --radius: 20px;
+      --radius2: 26px;
+      --max: 1400px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 700px at 20% 10%, rgba(168,85,247,.35), transparent 60%),
+        radial-gradient(900px 600px at 80% 25%, rgba(96,165,250,.22), transparent 60%),
+        radial-gradient(900px 700px at 55% 90%, rgba(34,197,94,.16), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 80px}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      padding:10px 12px;
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border-radius:999px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      position:sticky; top:14px; z-index:5;
+    }
+    .brand{display:flex; align-items:center; gap:10px; padding-left:6px}
+    .brand img{width:70px; height:70px;(--stroke)}
+    .brand b{letter-spacing:.2px}
+    .nav{display:flex; gap:10px; align-items:center}
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      text-decoration:none;
+      font-weight:600;
+      color:var(--text);
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .chip:hover{transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.2)}
+    .chip.primary{
+      border-color: rgba(168,85,247,.55);
+      background: linear-gradient(90deg, rgba(168,85,247,.28), rgba(96,165,250,.18));
+    }
+    .hero{
+      margin-top:26px;
+      border-radius: var(--radius2);
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(700px 300px at 20% 10%, rgba(168,85,247,.35), transparent 60%),
+        radial-gradient(700px 350px at 80% 0%, rgba(96,165,250,.22), transparent 65%),
+        radial-gradient(600px 350px at 60% 100%, rgba(34,197,94,.16), transparent 60%);
+      filter: blur(10px);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .hero-inner{
+      position:relative;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:18px;
+      padding:28px;
+      align-items:center;
+    }
+    @media (max-width: 920px){
+      .hero-inner{grid-template-columns:1fr; padding:22px}
+    }
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color:var(--muted);
+      font-weight:600;
+      letter-spacing:.2px;
+      width:fit-content;
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size: 44px;
+      line-height:1.05;
+      letter-spacing:.3px;
+    }
+    @media (max-width: 920px){ h1{font-size: 38px} }
+    .sub{color:var(--muted); font-size:17px; line-height:1.55; max-width:52ch}
+    .cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 16px;
+      border-radius:14px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      text-decoration:none;
+      font-weight:800;
+      letter-spacing:.2px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.22)}
+    .btn.primary{
+      border-color: rgba(168,85,247,.7);
+      background: linear-gradient(90deg, rgba(168,85,247,.35), rgba(96,165,250,.22));
+    }
+    .btn.green{
+      border-color: rgba(34,197,94,.55);
+      background: linear-gradient(90deg, rgba(34,197,94,.25), rgba(96,165,250,.12));
+    }
+    .hero-art{
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.22);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero-art img{width:100%; height:auto; display:block}
+    .grid{
+      margin-top:20px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    @media (max-width: 920px){ .grid{grid-template-columns:1fr} }
+    .card{
+      border-radius: var(--radius);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+      padding:16px 16px 14px;
+    }
+    .card h3{margin:4px 0 6px; font-size:16px}
+    .card p{margin:0; color:var(--muted); line-height:1.5; font-size:14.5px}
+    .section{
+      margin-top:26px;
+      border-radius: var(--radius2);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      overflow:hidden;
+      box-shadow: 0 16px 50px rgba(0,0,0,.45);
+    }
+    .section-inner{padding:22px}
+    .section h2{margin:0 0 10px; font-size:22px}
+    .steps{
+      display:grid; grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top:12px;
+    }
+    @media (max-width: 920px){ .steps{grid-template-columns:1fr} }
+    .step{
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      padding:14px 14px 12px;
+    }
+    .step b{display:block; margin-bottom:6px}
+    .step span{color:var(--muted); line-height:1.5; font-size:14.5px}
+    .support{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      align-items:center;
+    }
+    @media (max-width: 920px){ .support{grid-template-columns:1fr} }
+    .support img{
+      width:100%;
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.14);
+      display:block;
+    }
+    footer{
+      margin-top:26px;
+      color:var(--muted2);
+      font-size:13px;
+      text-align:center;
+    }
+    code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12.5px;
+      background: rgba(0,0,0,.26);
+      padding:2px 6px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:8px;
+    }
+  </style>
 </head>
 
 <body>
-<div class="wrap">
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <img src="assets/bot-icon.png" alt="Bot icon" />
+        <div>
+          <b>Sales LeaderBoard Bot</b><br>
+          <span style="color:var(--muted2); font-size:12.5px;">FiveM sales logs → live leaderboard + support inbox</span>
+        </div>
+      </div>
 
-<h1>Sales LeaderBoard Bot Features</h1>
-<p class="sub">
-Everything is designed for FiveM business owners who receive invoice embeds and want automatic tracking with zero micromanagement.
-</p>
+      <div class="nav">
+        <a class="chip" href="#features">Features</a>
+        <a class="chip" href="#install">Setup</a>
+        <a class="chip" href="#support">Support</a>
+        <a class="chip primary" href="https://tinyurl.com/SalesLeaderBoard" target="_blank" rel="noopener">Get the Bot</a>
+      </div>
+    </div>
 
-<div class="grid">
+    <section class="hero" id="top">
+      <div class="hero-inner">
+        <div>
+          <div class="kicker">🚀 Self-Hosted • Free Trial Available • Built for FiveM business owners</div>
+          <h1>Sales LeaderBoard Bot</h1>
+          <p class="sub">
+            A quality-of-life Discord bot that tracks sales, ranks top sellers, posts a live leaderboard, and provides support via DM.
+          </p>
 
-<div class="card">
-<h3>🧾 Invoice Detection</h3>
-<p>Reads “Invoice Paid” embeds automatically and logs sales without manual input.</p>
-</div>
+          <div class="cta-row">
+            <a class="btn green" href="#setup">⚙️ Quick Setup</a>
+            <a class="btn" href="#video">🎥 Video Tutorial</a>
+          </div>
 
-<div class="card">
-<h3>📊 Live Leaderboard</h3>
-<p>Updates a real-time leaderboard channel showing top sellers and totals.</p>
-</div>
+          <p style="margin:14px 0 0; color:var(--muted2); line-height:1.55;">
+            Contributions help cover hosting + ongoing development. Thank you for supporting the project.
+          </p>
+        </div>
 
-<div class="card">
-<h3>🏦 Bonus Pool Tracking</h3>
-<p>Optional bonus pool system to fairly split earnings across your staff.</p>
-</div>
+        <div class="hero-art">
+          <img src="assets/intro-hero.png" alt="Sales LeaderBoard Bot intro graphic" />
+        </div>
+      </div>
+    </section>
 
-<div class="card">
-<h3>🔐 Server Licensing</h3>
-<p>Per-guild licensing with expiration tracking, trials, and owner tools.</p>
-</div>
+    <section class="grid" id="features">
+      <div class="card">
+        <h3>🧾 Sales Tracking</h3>
+        <p>Automatically tracks paid invoices and keeps your business stats organized.</p>
+      </div>
+      <div class="card">
+        <h3>📈 Live Leaderboard</h3>
+        <p>Tracks sales from your “Invoice Paid” embeds and updates a live leaderboard automatically.</p>
+      </div>
+      <div class="card">
+        <h3>🏦 Bonus Pool + Payouts</h3>
+        <p>Optional bonus pool tracking so your team can see totals and standings at a glance.</p>
+      </div>
+    </section>
 
-<div class="card">
-<h3>💬 Support Inbox</h3>
-<p>Users DM the bot → automatic private support threads for staff.</p>
-</div>
 
-<div class="card">
-<h3>🔒 Persistent Close Ticket Button</h3>
-<p>Each support thread includes a Close Ticket button that survives restarts.</p>
-</div>
+    <section class="section" id="support">
+      <div class="section-inner">
+        <div class="support">
+          <div>
+            <h2>Need help?</h2>
+            <p style="color:var(--muted); line-height:1.55; margin-top:8px;">
+              DM the bot for support. A staff member will respond within <b>24 hours</b>.
+            </p>
+            <p style="color:var(--muted2); line-height:1.55;">
+              If you’re a server owner, include a screenshot of your error + what command you ran.
+            </p>
+            <div class="cta-row">
+              <a class="btn green" href="https://discord.com/users/1469489357864960313" target="_blank" rel="noopener">💬 Message the Bot</a>
+            </div>
+          </div>
+          <div>
+            <img src="assets/outro-support.png" alt="Support graphic" />
+          </div>
+        </div>
+      </div>
+    </section>
 
-<div class="card">
-<h3>⚙️ Self-Hosted</h3>
-<p>You run it on your own machine or VPS. No third-party hosting required.</p>
-</div>
+    <footer>
+      © <span id="y"></span> Sales LeaderBoard Bot • Built by StoogeCurly • Self-hosted project
+    </footer>
+  </div>
 
-<div class="card">
-<h3>🚀 Lightweight + Fast</h3>
-<p>No bloated dashboards. Pure Discord automation.</p>
-</div>
-
-<div class="card">
-<h3>🛠 Built for FiveM</h3>
-<p>Designed specifically around FiveM sales logs and RP business workflows.</p>
-</div>
-
-</div>
-
-<a class="back" href="index.html">⬅ Back to Home</a>
-
-</div>
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
