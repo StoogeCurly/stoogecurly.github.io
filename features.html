@@ -49,7 +49,7 @@
       box-shadow: 0 10px 30px rgba(0,0,0,.35);
       position:sticky; top:14px; z-index:5;
     }
-    .brand{display:flex; align-items:center; gap:10px; padding-left:6px}
+    .brand{display:flex; align-items:center; gap:14px; padding-left:6px}
     .brand img{width:70px; height:70px;(--stroke)}
     .brand b{letter-spacing:.2px}
     .nav{display:flex; gap:10px; align-items:center}
@@ -63,6 +63,7 @@
       font-weight:600;
       color:var(--text);
       transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      white-space:nowrap;
     }
     .chip:hover{transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.2)}
     .chip.primary{
@@ -218,8 +219,6 @@
   </style>
 </head>
 
-
-  
 <body>
   <div class="wrap">
     <div class="topbar">
@@ -229,17 +228,81 @@
           <b>Sales LeaderBoard Bot</b><br>
           <span style="color:var(--muted2); font-size:12.5px;">FiveM sales logs → live leaderboard + support inbox</span>
         </div>
+
+        <!-- MOVED HERE -->
+        <a class="chip primary" href="https://tinyurl.com/SalesLeaderBoard" target="_blank" rel="noopener" style="margin-left:14px;">
+          Get the Bot
+        </a>
       </div>
 
       <div class="nav">
         <a class="chip" href="#features">Features</a>
         <a class="chip" href="#install">Setup</a>
         <a class="chip" href="#support">Support</a>
-        <a class="chip primary" href="https://tinyurl.com/SalesLeaderBoard" target="_blank" rel="noopener">Get the Bot</a>
       </div>
     </div>
 
+    <section class="hero" id="top">
+      <div class="hero-inner">
+        <div>
+          <div class="kicker">🚀 Self-Hosted • Free Trial Available • Built for FiveM business owners</div>
+          <h1>Sales LeaderBoard Bot</h1>
+          <p class="sub">
+            A quality-of-life Discord bot that tracks sales, ranks top sellers, posts a live leaderboard, and provides support via DM.
+          </p>
 
+          <div class="cta-row">
+            <a class="btn green" href="#setup">⚙️ Quick Setup</a>
+            <a class="btn" href="#video">🎥 Video Tutorial</a>
+          </div>
+
+          <p style="margin:14px 0 0; color:var(--muted2); line-height:1.55;">
+            Contributions help cover hosting + ongoing development. Thank you for supporting the project.
+          </p>
+        </div>
+
+        <div class="hero-art">
+          <img src="assets/intro-hero.png" alt="Sales LeaderBoard Bot intro graphic" />
+        </div>
+      </div>
+    </section>
+
+    <section class="grid" id="features">
+      <div class="card">
+        <h3>🧾 Sales Tracking</h3>
+        <p>Automatically tracks paid invoices and keeps your business stats organized.</p>
+      </div>
+      <div class="card">
+        <h3>📈 Live Leaderboard</h3>
+        <p>Tracks sales from your “Invoice Paid” embeds and updates a live leaderboard automatically.</p>
+      </div>
+      <div class="card">
+        <h3>🏦 Bonus Pool + Payouts</h3>
+        <p>Optional bonus pool tracking so your team can see totals and standings at a glance.</p>
+      </div>
+    </section>
+
+    <section class="section" id="support">
+      <div class="section-inner">
+        <div class="support">
+          <div>
+            <h2>Need help?</h2>
+            <p style="color:var(--muted); line-height:1.55; margin-top:8px;">
+              DM the bot for support. A staff member will respond within <b>24 hours</b>.
+            </p>
+            <p style="color:var(--muted2); line-height:1.55;">
+              If you’re a server owner, include a screenshot of your error + what command you ran.
+            </p>
+            <div class="cta-row">
+              <a class="btn green" href="https://discord.com/users/1469489357864960313" target="_blank" rel="noopener">💬 Message the Bot</a>
+            </div>
+          </div>
+          <div>
+            <img src="assets/outro-support.png" alt="Support graphic" />
+          </div>
+        </div>
+      </div>
+    </section>
 
     <footer>
       © <span id="y"></span> Sales LeaderBoard Bot • Built by StoogeCurly • Self-hosted project
