@@ -39,9 +39,7 @@
       background-attachment:fixed;
       overflow-x:hidden;
     }
-    html {
-      scrollbar-gutter: stable;
-    }
+    html{ scrollbar-gutter: stable; }
 
     a{color:inherit}
     .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 80px}
@@ -95,20 +93,18 @@
       width:100%;
       margin-bottom:10px;
     }
-    
-        .section-head{
+
+    .section-head{
       margin:0 auto 32px;
       max-width:75ch;
     }
-    .section-head.center{
-      text-align:center;
-    }
+    .section-head.center{ text-align:center; }
     .section-head p{
       margin:6px 0 0;
       color:var(--muted);
       line-height:1.55;
     }
-    
+
     .grid{
       margin-top:20px;
       display:grid;
@@ -116,8 +112,8 @@
       gap:90px;
       justify-content:center;
     }
-
     @media (max-width: 920px){ .grid{grid-template-columns:1fr} }
+
     .card{
       border-radius: var(--radius);
       border:1px solid var(--stroke);
@@ -127,6 +123,7 @@
     }
     .card h3{margin:4px 0 6px; font-size:16px}
     .card p{margin:0; color:var(--muted); line-height:1.5; font-size:14.5px}
+
     .section{
       margin-top:26px;
       border-radius: var(--radius2);
@@ -137,22 +134,19 @@
     }
     .section-inner{padding:22px}
     .section h2{margin:0 0 10px; font-size:22px}
+
     .hero-art{
       border-radius: var(--radius);
       border:1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.22);
       overflow:hidden;
     }
-    .hero-art.small img{
-      max-width:550px;
-      margin:0 auto;
-    }
     .hero-art.small{
       max-width:550px;
       margin:0 auto;
     }
-
     .hero-art img{width:100%; height:auto; display:block}
+
     footer{
       margin-top:26px;
       color:var(--muted2);
@@ -186,7 +180,7 @@
     </div>
 
     <!-- FEATURES CONTENT -->
-    <section class="section" style="margin-top:22px;">
+    <section class="section" style="margin-top">
       <div class="section-inner">
         <div class="section-head center">
           <h2>Live Tracker</h2>
@@ -194,6 +188,7 @@
             Displays live sales totals and top sellers. Supports bonus pools and payouts with future updates planned including sales history, employee tracking, performance graphs, and more.
           </p>
         </div>
+
         <div class="grid" style="margin-top:0;">
           <div class="card">
             <h3>Without Bonuses</h3>
@@ -202,6 +197,7 @@
               <img src="assets/live-tracker-full.png" alt="Live tracker without bonuses" />
             </div>
           </div>
+
           <div class="card">
             <h3>With Bonuses</h3>
             <p>Bonus pool enabled with payout breakdowns.</p>
@@ -212,7 +208,6 @@
         </div>
       </div>
     </section>
-
 
     <section class="section">
       <div class="section-inner">
