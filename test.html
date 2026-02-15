@@ -26,6 +26,10 @@
     }
     *{box-sizing:border-box}
     html,body{height:100%}
+
+    /* Keep layout stable between pages (no width jump when scrollbar appears) */
+    html{ scrollbar-gutter: stable; }
+
     body{
       margin:0;
       color:var(--text);
@@ -39,10 +43,10 @@
       background-attachment:fixed;
       overflow-x:hidden;
     }
-    html{ scrollbar-gutter: stable; }
 
     a{color:inherit}
     .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 80px}
+
     .topbar{
       display:flex; align-items:center; justify-content:space-between; gap:14px;
       padding:10px 12px;
@@ -57,6 +61,7 @@
     .brand img{width:70px; height:70px}
     .brand b{letter-spacing:.2px}
     .nav{display:flex; gap:10px; align-items:center}
+
     .chip{
       display:inline-flex; align-items:center; gap:8px;
       padding:10px 14px;
@@ -80,20 +85,6 @@
       box-shadow: 0 0 18px rgba(96,165,250,.35);
     }
 
-    .support-card{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      text-align:center;
-      gap:10px;
-    }
-
-    .support-img{
-      max-width:480px;
-      width:100%;
-      margin-bottom:10px;
-    }
-
     .section-head{
       margin:0 auto 32px;
       max-width:75ch;
@@ -105,14 +96,15 @@
       line-height:1.55;
     }
 
-    .grid{
+    /* Two-card grid for the Live Tracker section */
+    .grid-2{
       margin-top:20px;
       display:grid;
       grid-template-columns: repeat(2, minmax(0, 420px));
       gap:90px;
       justify-content:center;
     }
-    @media (max-width: 920px){ .grid{grid-template-columns:1fr} }
+    @media (max-width: 920px){ .grid-2{grid-template-columns:1fr} }
 
     .card{
       border-radius: var(--radius);
@@ -180,7 +172,7 @@
     </div>
 
     <!-- FEATURES CONTENT -->
-    <section class="section" style="margin-top">
+    <section class="section">
       <div class="section-inner">
         <div class="section-head center">
           <h2>Live Tracker</h2>
@@ -189,7 +181,7 @@
           </p>
         </div>
 
-        <div class="grid" style="margin-top:0;">
+        <div class="grid-2" style="margin-top:0;">
           <div class="card">
             <h3>Without Bonuses</h3>
             <p>Clean leaderboard view with sales totals only.</p>
