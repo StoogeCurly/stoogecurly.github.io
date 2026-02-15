@@ -17,7 +17,265 @@
       --muted: rgba(255,255,255,.72);
       --muted2: rgba(255,255,255,.55);
       --accent:#a855f7;
+      --accent2:#22c55e;<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sales LeaderBoard Bot</title>
+  <meta name="description" content="A quality-of-life Discord bot for FiveM business owners who receive sales logs." />
+
+  <style>
+    :root{
+      --bg0:#070612;
+      --bg1:#130a2a;
+      --glass: rgba(255,255,255,.08);
+      --glass2: rgba(255,255,255,.12);
+      --stroke: rgba(255,255,255,.14);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --muted2: rgba(255,255,255,.55);
+      --accent:#a855f7;
       --accent2:#22c55e;
+      --accent3:#60a5fa;
+      --shadow: 0 20px 60px rgba(0,0,0,.55);
+      --radius: 20px;
+      --radius2: 26px;
+      --max: 1400px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+
+    /* Keep layout stable between pages (no width jump when scrollbar appears) */
+    html{ scrollbar-gutter: stable; }
+
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 700px at 20% 10%, rgba(168,85,247,.35), transparent 60%),
+        radial-gradient(900px 600px at 80% 25%, rgba(96,165,250,.22), transparent 60%),
+        radial-gradient(900px 700px at 55% 90%, rgba(34,197,94,.16), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      background-repeat:no-repeat;
+      background-attachment:fixed;
+      overflow-x:hidden;
+    }
+
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 80px}
+
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      padding:10px 12px;
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border-radius:999px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      position:sticky; top:14px; z-index:5;
+    }
+    .brand{display:flex; align-items:center; gap:14px; padding-left:6px}
+    .brand img{width:70px; height:70px}
+    .brand b{letter-spacing:.2px}
+    .nav{display:flex; gap:10px; align-items:center}
+
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      text-decoration:none;
+      font-weight:600;
+      color:var(--text);
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      white-space:nowrap;
+    }
+    .chip:hover{transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.2)}
+    .chip.primary{
+      border-color: rgba(168,85,247,.55);
+      background: linear-gradient(90deg, rgba(168,85,247,.28), rgba(96,165,250,.18));
+    }
+    .chip.secondary{
+      border-color: rgba(96,165,250,.6);
+      background: linear-gradient(90deg, rgba(96,165,250,.35), rgba(34,197,94,.12));
+      box-shadow: 0 0 18px rgba(96,165,250,.35);
+    }
+
+    .section-head{
+      margin:0 auto 32px;
+      max-width:75ch;
+    }
+    .section-head.center{ text-align:center; }
+    .section-head p{
+      margin:6px 0 0;
+      color:var(--muted);
+      line-height:1.55;
+    }
+
+    /* Two-card grid for the Live Tracker section */
+    .grid-2{
+      margin-top:20px;
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 420px));
+      gap:90px;
+      justify-content:center;
+    }
+    @media (max-width: 920px){ .grid-2{grid-template-columns:1fr} }
+
+    .card{
+      border-radius: var(--radius);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+      padding:16px 16px 14px;
+    }
+    .card h3{margin:4px 0 6px; font-size:16px}
+    .card p{margin:0; color:var(--muted); line-height:1.5; font-size:14.5px}
+
+.section{
+  margin-top:26px;
+  border-radius: var(--radius2);
+  border:1px solid var(--stroke);
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+  overflow:hidden;
+  box-shadow: var(--shadow);
+  position:relative;
+}
+
+.section::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:
+    radial-gradient(700px 300px at 20% 10%, rgba(168,85,247,.35), transparent 60%),
+    radial-gradient(700px 350px at 80% 0%, rgba(96,165,250,.22), transparent 65%),
+    radial-gradient(600px 350px at 60% 100%, rgba(34,197,94,.16), transparent 60%);
+  filter: blur(10px);
+  opacity:.9;
+  pointer-events:none;
+}
+
+
+    
+    .section-inner{padding:22px}
+    .section h2{margin:0 0 10px; font-size:22px}
+
+    .hero-art{
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.22);
+      overflow:hidden;
+    }
+    .hero-art.small{
+      max-width:550px;
+      margin:0 auto;
+    }
+    .hero-art img{width:100%; height:auto; display:block}
+
+    footer{
+      margin-top:26px;
+      color:var(--muted2);
+      font-size:13px;
+      text-align:center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <img src="assets/bot-icon.png" alt="Bot icon" />
+        <div>
+          <b>Sales LeaderBoard Bot</b><br>
+          <span style="color:var(--muted2); font-size:12.5px;">FiveM sales logs → live leaderboard + support inbox</span>
+        </div>
+
+        <a class="chip primary" href="https://tinyurl.com/SalesLeaderBoard" target="_blank" rel="noopener" style="margin-left:14px;">
+          Get the Bot
+        </a>
+      </div>
+
+      <div class="nav">
+        <a class="chip" href="/index">Home</a>
+        <a class="chip secondary" href="/features">Features</a>
+        <a class="chip" href="/setup">Setup</a>
+        <a class="chip" href="/support">Support</a>
+      </div>
+    </div>
+
+    <!-- FEATURES CONTENT -->
+    <section class="section">
+      <div class="section-inner">
+        <div class="section-head center">
+          <h2>Live Tracker</h2>
+          <p>
+            Displays live sales totals and top sellers. Supports bonus pools and payouts with future updates planned including sales history, employee tracking, performance graphs, and more.
+          </p>
+        </div>
+
+        <div class="grid-2" style="margin-top:0;">
+          <div class="card">
+            <h3>Without Bonuses</h3>
+            <p>Clean leaderboard view with sales totals only.</p>
+            <div class="hero-art" style="margin-top:12px;">
+              <img src="assets/live-tracker-full.png" alt="Live tracker without bonuses" />
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>With Bonuses</h3>
+            <p>Bonus pool enabled with payout breakdowns.</p>
+            <div class="hero-art" style="margin-top:12px;">
+              <img src="assets/live-tracker-full-w-bonus.png" alt="Live tracker with bonuses" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="section-head center">
+      <h2>Sales Settings Menu</h2>
+      <p>Configure tracking channels, leaderboard style, bonus options, and other server settings.</p>
+    </div>
+
+    <div class="hero-art small">
+      <img src="assets/salessettings-main.png" alt="Sales settings menu" />
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="section-inner">
+    <div class="section-head center">
+      <h2>Bonus Menu</h2>
+      <p>Turn on bonuses, set pools, and view payout logic at a glance.</p>
+    </div>
+
+    <div class="hero-art small">
+      <img src="assets/bonus-1.png" alt="Bonus menu" />
+    </div>
+  </div>
+</section>
+
+
+    <footer>
+      © <span id="y"></span> Sales LeaderBoard Bot • Built by StoogeCurly • Self-hosted project
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+
       --accent3:#60a5fa;
       --shadow: 0 20px 60px rgba(0,0,0,.55);
       --radius: 20px;
