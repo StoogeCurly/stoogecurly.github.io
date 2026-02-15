@@ -142,15 +142,6 @@
     }
     .hero-art img{width:100%; height:auto; display:block}
 
-    .img-grid{
-      display:grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap:12px;
-      margin-top:14px;
-    }
-    @media (max-width: 1100px){ .img-grid{grid-template-columns: repeat(2, minmax(0, 1fr));} }
-    @media (max-width: 620px){ .img-grid{grid-template-columns: 1fr;} }
-
     .card{
       border-radius: var(--radius);
       border:1px solid rgba(255,255,255,.14);
@@ -159,24 +150,6 @@
     }
     .card h3{margin:0 0 6px; font-size:16px}
     .card p{margin:0; color:var(--muted); line-height:1.55; font-size:14.5px}
-
-    .steps{
-      display:grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap:12px;
-      margin-top:14px;
-    }
-    @media (max-width: 1100px){ .steps{grid-template-columns: repeat(2, minmax(0, 1fr));} }
-    @media (max-width: 620px){ .steps{grid-template-columns: 1fr;} }
-
-    .step{
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      padding:14px 14px 12px;
-    }
-    .step b{display:block; margin-bottom:6px}
-    .step span{color:var(--muted); line-height:1.55; font-size:14.5px}
 
     footer{
       margin-top:26px;
@@ -193,6 +166,74 @@
       border:1px solid rgba(255,255,255,.12);
       border-radius:8px;
     }
+
+    /* ======================================================
+       NEW: Step cards (text + image together)
+       ====================================================== */
+    .stepper{display:flex; flex-direction:column; gap:16px; margin-top:14px;}
+
+    .step-card{
+      position:relative;
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      overflow:hidden;
+    }
+    .step-card::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(520px 220px at 15% 15%, rgba(168,85,247,.22), transparent 60%),
+        radial-gradient(520px 240px at 85% 0%, rgba(96,165,250,.16), transparent 65%),
+        radial-gradient(520px 240px at 60% 100%, rgba(34,197,94,.10), transparent 60%);
+      filter: blur(12px);
+      opacity:.85;
+      pointer-events:none;
+    }
+
+    .step-inner{
+      position:relative;
+      display:grid;
+      grid-template-columns: 420px 1fr;
+      gap:16px;
+      padding:16px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){
+      .step-inner{ grid-template-columns:1fr; }
+    }
+
+    .step-meta{padding:10px 10px 6px;}
+    .step-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color:var(--muted);
+      font-weight:700;
+      width:fit-content;
+    }
+    .step-meta h3{margin:10px 0 8px; font-size:18px;}
+    .step-meta p{margin:0; color:var(--muted); line-height:1.55; font-size:14.5px;}
+    .step-meta ul{
+      margin:10px 0 0;
+      padding-left:18px;
+      color:var(--muted);
+      line-height:1.55;
+      font-size:14.5px;
+    }
+
+    .step-shot{
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.22);
+      overflow:hidden;
+    }
+    .step-shot img{width:100%; height:auto; display:block;}
   </style>
 </head>
 
@@ -219,76 +260,158 @@
       </div>
     </div>
 
-    <!-- SETUP WIZARD -->
-<section class="section" style="margin-top:22px;">
-  <div class="section-inner">
-    <div class="section-head">
-      <div class="pill">⚙️ Setup</div>
-      <h2>Open /salessettings, then run the wizard</h2>
-      <p>
-        Start with <code>/salessettings</code>. From the control panel, click <b>First-Time Setup</b> to set your channels and permissions.
-      </p>
-    </div>
+    <!-- SETUP -->
+    <section class="section" style="margin-top:22px;">
+      <div class="section-inner">
+        <div class="section-head">
+          <div class="pill">⚙️ Setup</div>
+          <h2>Open /salessettings, then run the wizard</h2>
+          <p>
+            Start with <code>/salessettings</code>. From the control panel, click <b>First-Time Setup</b> to set your channels and permissions.
+          </p>
+        </div>
 
-    <!-- 1) COMMAND -->
-    <div class="card" style="max-width:920px; margin:0 auto;">
-      <h3>1) Type <code>/salessettings</code></h3>
-      <p>Open the bot’s Sales Settings menu from Discord’s command bar.</p>
-      <div class="hero-art" style="margin-top:12px;">
-        <img src="assets/setsalessettings.png" alt="Commands matching /sales screenshot" />
-      </div>
-    </div>
+        <!-- 1) COMMAND -->
+        <div class="card" style="max-width:920px; margin:0 auto;">
+          <h3>1) Type <code>/salessettings</code></h3>
+          <p>Open the bot’s Sales Settings menu from Discord’s command bar.</p>
+          <div class="hero-art" style="margin-top:12px;">
+            <img src="assets/setsalessettings.png" alt="Commands matching /sales screenshot" />
+          </div>
+        </div>
 
-    <!-- 2) CONTROL PANEL -->
-    <div class="card" style="max-width:920px; margin:12px auto 0;">
-      <h3>2) Sales Control Panel</h3>
-      <p>Click <b>First-Time Setup (Channels + Roles)</b> to begin the guided setup.</p>
-      <div class="hero-art" style="margin-top:12px;">
-        <img src="assets/salessettings-main.png" alt="Sales Settings control panel" />
-      </div>
-    </div>
+        <!-- 2) CONTROL PANEL -->
+        <div class="card" style="max-width:920px; margin:12px auto 0;">
+          <h3>2) Sales Control Panel</h3>
+          <p>Click <b>First-Time Setup (Channels + Roles)</b> to begin the guided setup.</p>
+          <div class="hero-art" style="margin-top:12px;">
+            <img src="assets/salessettings-main.png" alt="Sales Settings control panel" />
+          </div>
+        </div>
 
-    <!-- 3) WIZARD STEPS -->
-    <div class="section-head" style="margin-top:22px; margin-bottom:14px;">
-      <div class="pill">🧙 Setup Wizard</div>
-      <h2>Step-by-step</h2>
-      <p>Follow the wizard screens below in order.</p>
-    </div>
+        <!-- 3) WIZARD STEPS -->
+        <div class="section-head" style="margin-top:22px; margin-bottom:14px;">
+          <div class="pill">🧙 Setup Wizard</div>
+          <h2>Step-by-step</h2>
+          <p>Each step below matches the screen you’ll see in Discord.</p>
+        </div>
 
-    <div class="img-grid">
-      <div class="hero-art"><img src="assets/setup-1.png" alt="Wizard welcome screen" /></div>
-      <div class="hero-art"><img src="assets/setup-2.png" alt="Wizard step 1: Sales log channel" /></div>
-      <div class="hero-art"><img src="assets/setup-3.png" alt="Wizard step 2: Leaderboard channel" /></div>
-      <div class="hero-art"><img src="assets/setup-4.png" alt="Wizard step 3: /salesclear roles" /></div>
-      <div class="hero-art"><img src="assets/setup-5.png" alt="Wizard step 3: roles selected example" /></div>
-      <div class="hero-art"><img src="assets/setup-6.png" alt="Wizard step 4: confirm + save" /></div>
-    </div>
+        <div class="stepper">
+          <!-- Step 0 -->
+          <div class="step-card">
+            <div class="step-inner">
+              <div class="step-meta">
+                <div class="step-tag">Step 0 • Welcome</div>
+                <h3>Start the wizard</h3>
+                <p>Click <b>Start Setup</b> to begin the guided setup.</p>
+                <ul>
+                  <li>You’ll set: Sales log channel</li>
+                  <li>Leaderboard channel</li>
+                  <li>Roles for <code>/salesclear</code></li>
+                  <li>Confirm + save</li>
+                </ul>
+              </div>
+              <div class="step-shot">
+                <img src="assets/setup-1.png" alt="Sales Setup Wizard - Welcome screen" />
+              </div>
+            </div>
+          </div>
 
-    <div class="steps">
-      <div class="step">
-        <b>Welcome</b>
-        <span>Click <b>Start Setup</b> to begin.</span>
-      </div>
-      <div class="step">
-        <b>Step 1 — Sales Log Channel</b>
-        <span>Select where your <i>Invoice Paid</i> embeds appear.</span>
-      </div>
-      <div class="step">
-        <b>Step 2 — Leaderboard Channel</b>
-        <span>Choose where the bot should post/update the leaderboard (or create one).</span>
-      </div>
-      <div class="step">
-        <b>Step 3 — /salesclear Roles</b>
-        <span>Optional: roles allowed to use <code>/salesclear</code>. Leave empty = Admins only.</span>
-      </div>
-    </div>
+          <!-- Step 1 -->
+          <div class="step-card">
+            <div class="step-inner">
+              <div class="step-meta">
+                <div class="step-tag">Step 1 • Sales Log Channel</div>
+                <h3>Select your Sales Log channel</h3>
+                <p>Choose the channel where your <i>Invoice Paid</i> embeds appear.</p>
+                <ul>
+                  <li>This is the channel the bot reads to track sales.</li>
+                  <li>If it’s not set, sales won’t be counted.</li>
+                </ul>
+              </div>
+              <div class="step-shot">
+                <img src="assets/setup-2.png" alt="Wizard step 1 - select sales log channel" />
+              </div>
+            </div>
+          </div>
 
-    <div class="card" style="max-width:920px; margin:12px auto 0;">
-      <h3>Final — Save & Close</h3>
-      <p>Review the settings, then click <b>Save &amp; Close</b> to apply and refresh the leaderboard.</p>
-    </div>
-  </div>
-</section>
+          <!-- Step 2 -->
+          <div class="step-card">
+            <div class="step-inner">
+              <div class="step-meta">
+                <div class="step-tag">Step 2 • Leaderboard Channel</div>
+                <h3>Choose where the leaderboard posts</h3>
+                <p>Select the channel where the bot should post/update the live leaderboard.</p>
+                <ul>
+                  <li>No channel yet? Use <b>Create Leaderboard Channel</b>.</li>
+                </ul>
+              </div>
+              <div class="step-shot">
+                <img src="assets/setup-3.png" alt="Wizard step 2 - select leaderboard channel" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-card">
+            <div class="step-inner">
+              <div class="step-meta">
+                <div class="step-tag">Step 3 • /salesclear Roles</div>
+                <h3>Optional: pick who can run <code>/salesclear</code></h3>
+                <p>If you leave this empty, it defaults to <b>Admins only</b>.</p>
+                <ul>
+                  <li>Good picks: Owner, Management, Boss</li>
+                  <li>Keep it tight to prevent abuse</li>
+                </ul>
+              </div>
+              <div class="step-shot">
+                <img src="assets/setup-4.png" alt="Wizard step 3 - choose /salesclear roles" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3 example -->
+          <div class="step-card">
+            <div class="step-inner">
+              <div class="step-meta">
+                <div class="step-tag">Step 3 • Example</div>
+                <h3>Example role selection</h3>
+                <p>This is what it looks like when roles are selected.</p>
+              </div>
+              <div class="step-shot">
+                <img src="assets/setup-5.png" alt="Wizard step 3 - roles selected example" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="step-card">
+            <div class="step-inner">
+              <div class="step-meta">
+                <div class="step-tag">Step 4 • Confirm + Save</div>
+                <h3>Review settings, then save</h3>
+                <p>Click <b>Save &amp; Close</b> to apply settings and refresh/post the leaderboard.</p>
+                <ul>
+                  <li>Sales log channel ✅</li>
+                  <li>Leaderboard channel ✅</li>
+                  <li>/salesclear roles ✅</li>
+                </ul>
+              </div>
+              <div class="step-shot">
+                <img src="assets/setup-6.png" alt="Wizard step 4 - confirm settings and save" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="max-width:920px; margin:16px auto 0;">
+          <h3>Done ✅</h3>
+          <p>
+            After saving, the bot will apply your settings and post/refresh the leaderboard in your selected channel.
+          </p>
+        </div>
+      </div>
+    </section>
 
     <footer>
       © <span id="y"></span> Sales LeaderBoard Bot • Built by StoogeCurly • Self-hosted project
