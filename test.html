@@ -116,29 +116,29 @@
     .card h3{margin:4px 0 6px; font-size:16px}
     .card p{margin:0; color:var(--muted); line-height:1.5; font-size:14.5px}
 
-    .section{
-      margin-top:26px;
-      border-radius: var(--radius2);
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.05);
-      overflow:hidden;
-      box-shadow: 0 16px 50px rgba(0,0,0,.45);
-    }
+.section{
+  margin-top:26px;
+  border-radius: var(--radius2);
+  border:1px solid var(--stroke);
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+  overflow:hidden;
+  box-shadow: var(--shadow);
+  position:relative;
+}
 
-    .section::before{
+.section::before{
   content:"";
   position:absolute;
   inset:-2px;
   background:
-    radial-gradient(600px 300px at 15% 15%, rgba(168,85,247,.25), transparent 60%),
-    radial-gradient(600px 300px at 85% 10%, rgba(96,165,250,.18), transparent 60%);
-  filter: blur(12px);
-  opacity:.8;
+    radial-gradient(700px 300px at 20% 10%, rgba(168,85,247,.35), transparent 60%),
+    radial-gradient(700px 350px at 80% 0%, rgba(96,165,250,.22), transparent 65%),
+    radial-gradient(600px 350px at 60% 100%, rgba(34,197,94,.16), transparent 60%);
+  filter: blur(10px);
+  opacity:.9;
   pointer-events:none;
 }
-.section{
-  position:relative;
-}
+
 
     
     .section-inner{padding:22px}
