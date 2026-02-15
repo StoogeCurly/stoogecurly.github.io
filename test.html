@@ -23,7 +23,7 @@
       --radius: 20px;
       --radius2: 26px;
       --max: 1400px;
-      --shot: 420px; /* ✅ matches Features card max width */
+      --shot: 420px; /* matches Features card image width */
     }
 
     *{box-sizing:border-box}
@@ -115,11 +115,7 @@
       text-align:center;
     }
     .section-head h2{margin:0 0 8px; font-size:24px}
-    .section-head p{
-      margin:0;
-      color:var(--muted);
-      line-height:1.55;
-    }
+    .section-head p{margin:0; color:var(--muted); line-height:1.55;}
 
     .pill{
       display:inline-flex; align-items:center; gap:10px;
@@ -142,7 +138,6 @@
     }
     .hero-art img{width:100%; height:auto; display:block}
 
-    /* ✅ make these match Features “small” images */
     .hero-art.narrow{
       max-width: var(--shot);
       margin: 0 auto;
@@ -195,41 +190,43 @@
       pointer-events:none;
     }
 
-    /* ✅ KEY CHANGE:
-       Lock screenshot column to Features size */
+    /* Step layout: fixed screenshot column + flexible text column */
     .step-inner{
       position:relative;
       display:grid;
-      grid-template-columns: var(--shot) 1fr;
-      gap:16px;
-      padding:16px;
-      align-items:stretch;
+      grid-template-columns: var(--shot) minmax(0, 1fr);
+      gap:24px;
+      padding:22px;
+      align-items:center;
     }
     @media (max-width: 920px){
-      .step-inner{ grid-template-columns:1fr; }
+      .step-inner{ grid-template-columns: 1fr; }
     }
 
-    .step-inner{
-  position:relative;
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap:24px;
-  padding:22px;
-  align-items:center;
-}
-
+    /* Screenshot is centered inside its column */
     .step-shot{
-  max-width:420px;
-  margin:0 auto;
-}
+      width:100%;
+      max-width: var(--shot);
+      justify-self:center;
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.22);
+      overflow:hidden;
+    }
+    .step-shot img{width:100%; height:auto; display:block;}
+    @media (max-width: 920px){
+      .step-shot{max-width: 100%;}
+    }
 
-.step-meta{
-  max-width:480px;
-}
+    /* Text block is truly vertically centered next to the image */
+    .step-meta{
+      padding:10px 10px 6px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      max-width:480px;
+    }
 
-
-    
-    .step-meta{padding:10px 10px 6px;}
     .step-tag{
       display:inline-flex;
       align-items:center;
@@ -250,21 +247,6 @@
       color:var(--muted);
       line-height:1.55;
       font-size:14.5px;
-    }
-
-    /* ✅ screenshot box is capped + centered like Features */
-    .step-shot{
-      max-width: var(--shot);
-      width:100%;
-      justify-self:center;
-      border-radius: var(--radius);
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.22);
-      overflow:hidden;
-    }
-    .step-shot img{width:100%; height:auto; display:block;}
-    @media (max-width: 920px){
-      .step-shot{max-width: 100%;}
     }
   </style>
 </head>
