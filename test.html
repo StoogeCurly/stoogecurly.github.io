@@ -220,70 +220,75 @@
     </div>
 
     <!-- SETUP WIZARD -->
-    <section class="section" style="margin-top:22px;">
-      <div class="section-inner">
-        <div class="section-head">
-          <div class="pill">⚙️ First-Time Setup Wizard</div>
-          <h2>Get fully running in a couple minutes</h2>
-          <p>
-            Use <code>/salessettings</code> → <b>First-Time Setup</b> to connect your channels and (optionally) choose who can use <code>/salesclear</code>.
-          </p>
-        </div>
+<section class="section" style="margin-top:22px;">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="pill">⚙️ Setup</div>
+      <h2>Open /salessettings, then run the wizard</h2>
+      <p>
+        Start with <code>/salessettings</code>. From the control panel, click <b>First-Time Setup</b> to set your channels and permissions.
+      </p>
+    </div>
 
-        <div class="card" style="max-width:920px; margin:0 auto;">
-          <h3>1) Open the setup command</h3>
-          <p>Start by typing <code>/salessettings</code> anywhere you can use commands.</p>
-          <div class="hero-art" style="margin-top:12px;">
-            <img src="assets/setup-0-command.png" alt="Commands matching /sales screenshot" />
-          </div>
-        </div>
-
-        <div class="img-grid">
-          <div class="hero-art"><img src="assets/setup-1.png" alt="Setup wizard welcome" /></div>
-          <div class="hero-art"><img src="assets/setup-2.png" alt="Setup wizard step 1" /></div>
-          <div class="hero-art"><img src="assets/setup-3.png" alt="Setup wizard step 2" /></div>
-          <div class="hero-art"><img src="assets/setup-4.png" alt="Setup wizard step 3" /></div>
-          <div class="hero-art"><img src="assets/setup-5.png" alt="Setup wizard roles selected" /></div>
-          <div class="hero-art"><img src="assets/setup-6.png" alt="Setup wizard confirm + save" /></div>
-        </div>
-
-        <div class="steps">
-          <div class="step">
-            <b>Step 1 — Sales Log Channel</b>
-            <span>Select the channel where your <i>Invoice Paid</i> embeds appear (your sales logs).</span>
-          </div>
-          <div class="step">
-            <b>Step 2 — Leaderboard Channel</b>
-            <span>Pick the channel where the bot should post and update the leaderboard (or create one).</span>
-          </div>
-          <div class="step">
-            <b>Step 3 — /salesclear Roles</b>
-            <span>Optional: choose roles allowed to clear/reset the board. Leave empty = Admins only.</span>
-          </div>
-          <div class="step">
-            <b>Step 4 — Confirm & Save</b>
-            <span>Review your settings, then hit <b>Save & Close</b> to apply and refresh the leaderboard.</span>
-          </div>
-        </div>
+    <!-- 1) COMMAND -->
+    <div class="card" style="max-width:920px; margin:0 auto;">
+      <h3>1) Type <code>/salessettings</code></h3>
+      <p>Open the bot’s Sales Settings menu from Discord’s command bar.</p>
+      <div class="hero-art" style="margin-top:12px;">
+        <img src="assets/setup-0-command.png" alt="Commands matching /sales screenshot" />
       </div>
-    </section>
+    </div>
 
-    <!-- SALES SETTINGS MENU -->
-    <section class="section">
-      <div class="section-inner">
-        <div class="section-head">
-          <div class="pill">🧾 Sales Settings Menu</div>
-          <h2>Your control panel</h2>
-          <p>
-            This is where you’ll configure channels, bonuses, and other options after the first-time setup is complete.
-          </p>
-        </div>
-
-        <div class="hero-art" style="max-width:680px; margin:0 auto;">
-          <img src="assets/salessettings-main.png" alt="Sales settings menu" />
-        </div>
+    <!-- 2) CONTROL PANEL -->
+    <div class="card" style="max-width:920px; margin:12px auto 0;">
+      <h3>2) Sales Control Panel</h3>
+      <p>Click <b>First-Time Setup (Channels + Roles)</b> to begin the guided setup.</p>
+      <div class="hero-art" style="margin-top:12px;">
+        <img src="assets/salessettings-main.png" alt="Sales Settings control panel" />
       </div>
-    </section>
+    </div>
+
+    <!-- 3) WIZARD STEPS -->
+    <div class="section-head" style="margin-top:22px; margin-bottom:14px;">
+      <div class="pill">🧙 Setup Wizard</div>
+      <h2>Step-by-step</h2>
+      <p>Follow the wizard screens below in order.</p>
+    </div>
+
+    <div class="img-grid">
+      <div class="hero-art"><img src="assets/setup-1.png" alt="Wizard welcome screen" /></div>
+      <div class="hero-art"><img src="assets/setup-2.png" alt="Wizard step 1: Sales log channel" /></div>
+      <div class="hero-art"><img src="assets/setup-3.png" alt="Wizard step 2: Leaderboard channel" /></div>
+      <div class="hero-art"><img src="assets/setup-4.png" alt="Wizard step 3: /salesclear roles" /></div>
+      <div class="hero-art"><img src="assets/setup-5.png" alt="Wizard step 3: roles selected example" /></div>
+      <div class="hero-art"><img src="assets/setup-6.png" alt="Wizard step 4: confirm + save" /></div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <b>Welcome</b>
+        <span>Click <b>Start Setup</b> to begin.</span>
+      </div>
+      <div class="step">
+        <b>Step 1 — Sales Log Channel</b>
+        <span>Select where your <i>Invoice Paid</i> embeds appear.</span>
+      </div>
+      <div class="step">
+        <b>Step 2 — Leaderboard Channel</b>
+        <span>Choose where the bot should post/update the leaderboard (or create one).</span>
+      </div>
+      <div class="step">
+        <b>Step 3 — /salesclear Roles</b>
+        <span>Optional: roles allowed to use <code>/salesclear</code>. Leave empty = Admins only.</span>
+      </div>
+    </div>
+
+    <div class="card" style="max-width:920px; margin:12px auto 0;">
+      <h3>Final — Save & Close</h3>
+      <p>Review the settings, then click <b>Save &amp; Close</b> to apply and refresh the leaderboard.</p>
+    </div>
+  </div>
+</section>
 
     <footer>
       © <span id="y"></span> Sales LeaderBoard Bot • Built by StoogeCurly • Self-hosted project
