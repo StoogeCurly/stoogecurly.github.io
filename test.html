@@ -23,7 +23,7 @@
       --radius: 20px;
       --radius2: 26px;
       --max: 1400px;
-      --shot: 420px; /* matches Features card image width */
+      --shot: 420px; /* screenshot size */
     }
 
     *{box-sizing:border-box}
@@ -115,7 +115,11 @@
       text-align:center;
     }
     .section-head h2{margin:0 0 8px; font-size:24px}
-    .section-head p{margin:0; color:var(--muted); line-height:1.55;}
+    .section-head p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.55;
+    }
 
     .pill{
       display:inline-flex; align-items:center; gap:10px;
@@ -190,23 +194,24 @@
       pointer-events:none;
     }
 
-    /* Step layout: fixed screenshot column + flexible text column */
+    /* ✅ Centered two-column layout inside the card */
     .step-inner{
       position:relative;
       display:grid;
-      grid-template-columns: var(--shot) minmax(0, 1fr);
-      gap:24px;
-      padding:22px;
-      align-items:center;
+      grid-template-columns: var(--shot) minmax(300px, 480px);
+      gap:40px;
+      padding:26px;
+      align-items:center;        /* vertical center */
+      justify-content:center;    /* centers the whole pair in the card */
     }
     @media (max-width: 920px){
-      .step-inner{ grid-template-columns: 1fr; }
+      .step-inner{ grid-template-columns:1fr; }
     }
 
-    /* Screenshot is centered inside its column */
+    /* ✅ Screenshot box (centered) */
     .step-shot{
-      width:100%;
       max-width: var(--shot);
+      width:100%;
       justify-self:center;
       border-radius: var(--radius);
       border:1px solid rgba(255,255,255,.14);
@@ -214,17 +219,13 @@
       overflow:hidden;
     }
     .step-shot img{width:100%; height:auto; display:block;}
-    @media (max-width: 920px){
-      .step-shot{max-width: 100%;}
-    }
 
-    /* Text block is truly vertically centered next to the image */
+    /* ✅ Text column (centered) */
     .step-meta{
-      padding:10px 10px 6px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
       max-width:480px;
+      justify-self:center;
+      text-align:center;
+      padding:10px 10px 6px;
     }
 
     .step-tag{
@@ -238,12 +239,16 @@
       color:var(--muted);
       font-weight:700;
       width:fit-content;
+      margin:0 auto; /* center the pill */
     }
+
     .step-meta h3{margin:10px 0 8px; font-size:18px;}
     .step-meta p{margin:0; color:var(--muted); line-height:1.55; font-size:14.5px;}
+
     .step-meta ul{
       margin:10px 0 0;
-      padding-left:18px;
+      padding-left:0;              /* remove left indent */
+      list-style-position:inside;  /* keep bullets centered nicely */
       color:var(--muted);
       line-height:1.55;
       font-size:14.5px;
