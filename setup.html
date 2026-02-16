@@ -191,12 +191,15 @@ html{
     .hero-art img{width:100%; height:auto; display:block}
     .hero-art.narrow{ max-width: var(--shot); margin: 0 auto; }
 
-    /* Only shrink images in SECTION 1: SETUP */
-    .section:first-of-type .hero-art{
-      max-width: 800px;
-      margin-left:auto;
-      margin-right:auto;
+    /* ✅ ONLY shrink images in SECTION 1: SETUP */
+    #setup-section .hero-art.narrow{
+      max-width: 320px;  /* /sales screenshot size */
+      margin: 0 auto;
     }
+
+#setup-section .shots-row .hero-art{
+  max-width: 420px;  /* side-by-side images size */
+}
 
 
     .card{
@@ -362,7 +365,7 @@ html{
     <!-- =========================
          SECTION 1: SETUP
     ========================== -->
-    <section class="section">
+    <section id="setup-section" class="section">
       <div class="section-inner">
         <div class="section-head">
           <div class="pill">⚙️ Setup</div>
