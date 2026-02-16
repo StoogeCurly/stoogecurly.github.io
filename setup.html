@@ -77,15 +77,30 @@ html{
     .side-by-side img{
       width:50%;
       border-radius:12px;}
+
+
     .shots-row{
       display:flex;
       gap:12px;
-      justify-content:center;
+      justify-content:space-between;
       align-items:flex-start;
-      flex-wrap:wrap;}
+      flex-wrap:nowrap;              /* ✅ force side-by-side */
+    }
 
     .shots-row .hero-art{
-      width:min(420px, 100%);}
+      flex:1;                        /* ✅ each takes half */
+      max-width: calc(50% - 6px);    /* ✅ exact 2-per-row with gap */
+    }
+
+    /* Stack on small screens only */
+    @media (max-width: 900px){
+      .shots-row{
+        flex-wrap:wrap;
+      }
+      .shots-row .hero-art{
+        max-width:100%;
+      }
+    }
 
     
     
