@@ -83,20 +83,11 @@
       white-space:nowrap;
       box-shadow: 0 0 16px rgba(255,193,7,.25);
     }
-    .beta-text{
-      color:rgba(255,255,255,.9);
-    }
-    .beta-text span{
-      color:rgba(255,255,255,.7);
-    }
+    .beta-text{ color:rgba(255,255,255,.9); }
+    .beta-text span{ color:rgba(255,255,255,.7); }
     @media (max-width: 920px){
-      .beta-inner{
-        align-items:flex-start;
-      }
-      .beta-text{
-        font-size:14px;
-        line-height:1.5;
-      }
+      .beta-inner{ align-items:flex-start; }
+      .beta-text{ font-size:14px; line-height:1.5; }
     }
 
     .topbar{
@@ -134,30 +125,6 @@
       border-color: rgba(96,165,250,.6);
       background: linear-gradient(90deg, rgba(96,165,250,.35), rgba(34,197,94,.12));
       box-shadow: 0 0 18px rgba(96,165,250,.35);
-    }
-
-    .support-card{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-    }
-
-    .support-img{
-      max-width:1920px;
-      width:100%;
-      border-radius: var(--radius);
-      border:1px solid rgba(255,255,255,.14);
-      display:block;
-    }
-    .support-card .cta-row{
-      margin-top:60px;
-      margin-bottom:16px;
-    }
-    .support-card p{
-      margin:0;
-      line-height:1.3;
     }
 
     .hero{
@@ -245,35 +212,46 @@
       display:grid;
       grid-template-columns: repeat(3, 1fr);
       gap:14px;
+      align-items:stretch;
     }
     @media (max-width: 920px){ .grid{grid-template-columns:1fr} }
+
     .card{
       border-radius: var(--radius);
       border:1px solid var(--stroke);
       background: rgba(255,255,255,.06);
       box-shadow: 0 12px 30px rgba(0,0,0,.35);
       padding:16px 16px 14px;
+
+      display:flex;
+      flex-direction:column;
+      height:100%;
     }
     .card h3{margin:4px 0 6px; font-size:16px}
     .card p{margin:0; color:var(--muted); line-height:1.5; font-size:14.5px}
 
     /* =========================
-       FEATURE CARD THUMBNAILS
+       FEATURE CARD THUMBNAILS (UPDATED)
     ========================= */
-	.card-media{
-	  width:100%;
-	  border-radius:14px;
-	  border:1px solid rgba(255,255,255,.14);
-	  overflow:hidden;
-	  background: rgba(0,0,0,.22);
-	  margin-bottom:10px;
-	}
+    .card-media{
+      width:100%;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      overflow:hidden;
+      background: rgba(0,0,0,.22);
+      margin-bottom:10px;
 
-	.card-media img{
-	  width:100%;
-	  height:auto;
- 	 display:block;
-	}
+      aspect-ratio: 16 / 9;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .card-media img{
+      width:100%;
+      height:100%;
+      object-fit:contain;  /* keep whole image, no distortion */
+      display:block;
+    }
 
     .section{
       margin-top:26px;
@@ -486,9 +464,6 @@
 
 <body>
 
-  <!-- =========================
-       GLOBAL TOP BETA BANNER
-  ========================= -->
   <div class="beta-banner">
     <div class="beta-inner">
       <span class="beta-pill">🚧 BETA</span>
@@ -564,20 +539,15 @@
         <h3>📊 Sales Chart</h3>
         <p>Graphs sales over time so you can see history, highs/lows, and trends at a glance.</p>
       </div>
-      
+
       <div class="card">
         <div class="card-media">
           <img src="assets/leaderboard/live-tracker-full-w-bonus.png" alt="Live leaderboard preview" />
         </div>
         <h3>📈 Live Leaderboard + Bonus Pool</h3>
-        <p>
-          Tracks sales from your “Invoice Paid” embeds, ranks the top 3 sellers, and automatically
-          calculates bonus payouts based on <b>total dollars sold</b> and <b>invoice count</b> —
-          so rewards stay fair, balanced, and transparent.
-        </p>
+        <p>Tracks sales, ranks the top 3, and calculates fair bonuses by sales + invoice count.</p>
       </div>
-	</section>
-
+    </section>
 
     <section class="section" id="pricing">
       <div class="section-inner">
@@ -587,8 +557,6 @@
           Free gives you the essentials. Premium unlocks the live leaderboard tools and payout features.
           Your sales history continues collecting in the background either way.
         </p>
-
-        <!-- ✅ BETA NOTICE (BIGGER) REMOVED (now shown at top) -->
 
         <div class="plans" style="margin-top:16px;">
 
