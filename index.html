@@ -1,4 +1,4 @@
-  <!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -212,41 +212,11 @@
     .section-inner{padding:22px}
     .section h2{margin:0 0 10px; font-size:22px}
 
-    .steps{
-      display:grid; grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-      margin-top:12px;
-    }
-    @media (max-width: 920px){ .steps{grid-template-columns:1fr} }
-    .step{
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      padding:14px 14px 12px;
-    }
-    .step b{display:block; margin-bottom:6px}
-    .step span{color:var(--muted); line-height:1.5; font-size:14.5px}
-    .support{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:14px;
-      align-items:center;
-    }
-
     footer{
       margin-top:26px;
       color:var(--muted2);
       font-size:13px;
       text-align:center;
-    }
-
-    code{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 12.5px;
-      background: rgba(0,0,0,.26);
-      padding:2px 6px;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:8px;
     }
 
     /* =========================
@@ -300,7 +270,6 @@
       letter-spacing:.2px;
     }
 
-    /* UPDATED price styling (bigger for BOTH $0 and $8) */
     .plan-price{
       text-align:right;
       font-weight:950;
@@ -321,7 +290,6 @@
       letter-spacing:.12em;
     }
 
-    /* Bigger "button-like" badges */
     .badge{
       display:inline-flex;
       align-items:center;
@@ -349,13 +317,11 @@
       box-shadow: 0 0 26px rgba(168,85,247,.22), 0 10px 24px rgba(0,0,0,.30);
     }
 
-    /* Give FREE price a subtle blue glow (optional but nice) */
     .plan:not(.featured) .plan-price b{
       color: rgba(255,255,255,.95);
       filter: drop-shadow(0 0 10px rgba(96,165,250,.15));
     }
 
-    /* Featured Premium card */
     .plan.featured{
       border-color: rgba(168,85,247,.55);
       box-shadow:
@@ -374,7 +340,6 @@
       box-shadow: inset 0 0 0 1px rgba(168,85,247,.14);
     }
 
-    /* Make the premium price glow more */
     .plan.featured .plan-price b{
       background: linear-gradient(90deg, rgba(255,255,255,.95), rgba(96,165,250,.90));
       -webkit-background-clip: text;
@@ -387,14 +352,12 @@
       color: rgba(255,255,255,.78);
     }
 
-
-    /* Featured FREE card (visible blue glow) */
     .plan.free-featured{
       border-color: rgba(96,165,250,.28);
       box-shadow:
-        0 18px 55px rgba(0,0,0,.50),      /* normal depth */
-        0 0 0 1px rgba(96,165,250,.28),   /* crisp blue ring */
-        0 0 70px rgba(96,165,250,.18);    /* stronger outer glow */
+        0 18px 55px rgba(0,0,0,.50),
+        0 0 0 1px rgba(96,165,250,.28),
+        0 0 70px rgba(96,165,250,.18);
       transform: translateY(-2px);
     }
 
@@ -406,7 +369,7 @@
       pointer-events:none;
       box-shadow:
         inset 0 0 0 1px rgba(96,165,250,.18),
-        inset 0 0 24px rgba(96,165,250,.06); /* soft inner blue wash */
+        inset 0 0 24px rgba(96,165,250,.06);
     }
 
     .plan.free-featured::before{
@@ -415,7 +378,6 @@
         radial-gradient(520px 240px at 85% 0%, rgba(96,165,250,.14), transparent 65%),
         radial-gradient(520px 260px at 70% 100%, rgba(34,197,94,.06), transparent 60%);
     }
-
 
     .plan-desc{
       margin:10px 0 12px;
@@ -510,9 +472,6 @@
       </div>
     </section>
 
-    <!-- =========================
-         PLANS SECTION (UPDATED)
-    ========================== -->
     <section class="section" id="pricing">
       <div class="section-inner">
         <div class="kicker">💳 Plans • Free vs Premium</div>
@@ -521,6 +480,61 @@
           Free gives you the essentials. Premium unlocks the live leaderboard tools and payout features.
           Your sales history continues collecting in the background either way.
         </p>
+
+
+        <!-- ✅ BETA NOTICE (BIGGER) -->
+    <div style="
+      margin:16px 0 18px;
+      padding:18px 20px;
+      border-radius:18px;
+      border:1px solid rgba(255,193,7,.45);
+      background: rgba(255,193,7,.11);
+      color: rgba(255,255,255,.92);
+      font-size:16px;
+      line-height:1.6;
+      box-shadow:
+        0 18px 55px rgba(0,0,0,.55),
+        0 0 0 1px rgba(255,193,7,.18),
+        0 0 40px rgba(255,193,7,.16);
+    ">
+      <div style="
+        display:flex;
+        align-items:center;
+        gap:10px;
+        margin-bottom:10px;
+      ">
+        <span style="
+          display:inline-flex;
+          align-items:center;
+          justify-content:center;
+          padding:6px 10px;
+          border-radius:999px;
+          border:1px solid rgba(255,193,7,.55);
+          background: rgba(0,0,0,.18);
+          font-weight:950;
+          letter-spacing:.14em;
+          text-transform:uppercase;
+          font-size:12px;
+          box-shadow: 0 0 18px rgba(255,193,7,.22);
+        ">🚧 BETA</span>
+
+        <span style="
+          font-weight:950;
+          font-size:16px;
+          letter-spacing:.2px;
+        ">Beta Phase Notice</span>
+      </div>
+
+      <div style="font-size:16px;">
+        The bot is currently in <b>beta until February 27, 2026</b>.<br>
+        All data will be <b>wiped before final release</b>.<br>
+        The bot will return online for full launch on <b>March 1, 2026</b>.<br>
+        <span style="color: rgba(255,255,255,.78);">
+          Feel free to test everything — just don’t rely on current stats yet.
+        </span>
+      </div>
+    </div>
+
 
         <div class="plans" style="margin-top:16px;">
 
