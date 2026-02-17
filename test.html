@@ -222,7 +222,6 @@
       background: rgba(255,255,255,.06);
       box-shadow: 0 12px 30px rgba(0,0,0,.35);
       padding:16px 16px 14px;
-
       display:flex;
       flex-direction:column;
       height:100%;
@@ -249,9 +248,63 @@
     .card-media img{
       width:100%;
       height:100%;
-      object-fit:contain;  /* keep whole image, no distortion */
+      object-fit:contain;
       display:block;
     }
+
+    /* =========================
+       IMAGE LIGHTBOX (CLICK TO ZOOM)
+    ========================= */
+    .zoomable{ cursor: zoom-in; }
+
+    .lightbox{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(8px);
+    }
+    .lightbox.open{ display:flex; }
+
+    .lightbox-inner{
+      width:min(1200px, 96vw);
+      max-height:90vh;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(10,10,20,.55);
+      box-shadow: 0 30px 100px rgba(0,0,0,.65);
+      overflow:hidden;
+      position:relative;
+    }
+    .lightbox-img{
+      width:100%;
+      height:auto;
+      max-height:90vh;
+      display:block;
+      object-fit: contain;
+      background: rgba(0,0,0,.25);
+    }
+    .lightbox-close{
+      position:absolute;
+      top:10px;
+      right:10px;
+      width:40px;
+      height:40px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.35);
+      color: rgba(255,255,255,.9);
+      font-weight:900;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .lightbox-close:hover{ background: rgba(0,0,0,.5); }
 
     .section{
       margin-top:26px;
@@ -526,7 +579,7 @@
     <section class="grid" id="features">
       <div class="card">
         <div class="card-media">
-          <img src="assets/invoices/Invoice-tracker.png" alt="Sales tracking preview" />
+          <img class="zoomable" src="assets/invoices/Invoice-tracker.png" alt="Sales tracking preview" />
         </div>
         <h3>🧾 Sales Tracking</h3>
         <p>Automatically tracks paid invoices and keeps your business stats organized.</p>
@@ -534,7 +587,7 @@
 
       <div class="card">
         <div class="card-media">
-          <img src="assets/sales-chart/sales-chart.png" alt="Sales chart preview" />
+          <img class="zoomable" src="assets/sales-chart/sales-chart.png" alt="Sales chart preview" />
         </div>
         <h3>📊 Sales Chart</h3>
         <p>Graphs sales over time so you can see history, highs/lows, and trends at a glance.</p>
@@ -542,7 +595,7 @@
 
       <div class="card">
         <div class="card-media">
-          <img src="assets/leaderboard/live-tracker-full-w-bonus.png" alt="Live leaderboard preview" />
+          <img class="zoomable" src="assets/leaderboard/live-tracker-full-w-bonus.png" alt="Live leaderboard preview" />
         </div>
         <h3>📈 Live Leaderboard + Bonus Pool</h3>
         <p>Tracks sales, ranks the top 3, and calculates fair bonuses by sales + invoice count.</p>
@@ -639,8 +692,55 @@
     </footer>
   </div>
 
+  <!-- Lightbox markup -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <div class="lightbox-inner" role="dialog" aria-modal="true" aria-label="Image preview">
+      <button class="lightbox-close" type="button" aria-label="Close">✕</button>
+      <img id="lightboxImg" class="lightbox-img" alt="Preview" />
+    </div>
+  </div>
+
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    // Click-to-zoom for images with .zoomable
+    (function(){
+      const lb = document.getElementById("lightbox");
+      const lbImg = document.getElementById("lightboxImg");
+      const closeBtn = lb.querySelector(".lightbox-close");
+
+      function openLightbox(src, alt){
+        lbImg.src = src;
+        lbImg.alt = alt || "Preview";
+        lb.classList.add("open");
+        lb.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeLightbox(){
+        lb.classList.remove("open");
+        lb.setAttribute("aria-hidden", "true");
+        lbImg.src = "";
+        document.body.style.overflow = "";
+      }
+
+      document.addEventListener("click", (e) => {
+        const img = e.target.closest("img.zoomable");
+        if (img) openLightbox(img.src, img.alt);
+      });
+
+      closeBtn.addEventListener("click", closeLightbox);
+
+      // Click outside the image closes
+      lb.addEventListener("click", (e) => {
+        if (e.target === lb) closeLightbox();
+      });
+
+      // ESC closes
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && lb.classList.contains("open")) closeLightbox();
+      });
+    })();
   </script>
 </body>
 </html>
