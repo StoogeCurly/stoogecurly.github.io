@@ -388,14 +388,14 @@
     }
 
 
-/* Featured FREE card (soft blue) */
+    /* Featured FREE card (visible blue glow) */
     .plan.free-featured{
-      border-color: var(--stroke);
+      border-color: rgba(96,165,250,.28);
       box-shadow:
-        0 16px 45px rgba(0,0,0,.45),
-        0 0 0 1px rgba(96,165,250,.20),
-        0 0 50px rgba(96,165,250,.10);
-      transform: translateY(-1px);
+        0 18px 55px rgba(0,0,0,.50),      /* normal depth */
+        0 0 0 1px rgba(96,165,250,.28),   /* crisp blue ring */
+        0 0 70px rgba(96,165,250,.18);    /* stronger outer glow */
+      transform: translateY(-2px);
     }
 
     .plan.free-featured::after{
@@ -404,11 +404,12 @@
       inset:0;
       border-radius: var(--radius);
       pointer-events:none;
-      box-shadow: inset 0 0 0 1px rgba(96,165,250,.14);
+      box-shadow:
+        inset 0 0 0 1px rgba(96,165,250,.18),
+        inset 0 0 24px rgba(96,165,250,.06); /* soft inner blue wash */
     }
 
 
-    
     .plan-desc{
       margin:10px 0 12px;
       color:var(--muted);
