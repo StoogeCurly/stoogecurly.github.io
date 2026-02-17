@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sales LeaderBoard Bot</title>
+  <meta name="description" content="A quality-of-life Discord bot for FiveM business owners who receive sales logs." />
+
+  <style>
+    :root{
+      --bg0:#070612;
+      --bg1:#130a2a;
+      --glass: rgba(255,255,255,.08);
+      --glass2: rgba(255,255,255,.12);
+      --stroke: rgba(255,255,255,.14);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --muted2: rgba(255,255,255,.55);
+      --accent:#a855f7;     /* purple */
+      --accent2:#22c55e;    /* green */
+      --accent3:#60a5fa;    /* blue */
+      --shadow: 0 20px 60px rgba(0,0,0,.55);
+      --radius: 20px;
+      --radius2: 26px;
+      --max: 1400px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 700px at 20% 10%, rgba(168,85,247,.35), transparent 60%),
+        radial-gradient(900px 600px at 80% 25%, rgba(96,165,250,.22), transparent 60%),
+        radial-gradient(900px 700px at 55% 90%, rgba(34,197,94,.16), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      background-repeat:no-repeat;
+      background-attachment:fixed;
+      overflow-x:hidden;
+    }
+    html { scrollbar-gutter: stable; }
+
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 80px}
+
+    /* =========================
+       GLOBAL TOP BETA BANNER
+    ========================= */
+    .beta-banner{
+      position:sticky;
+      top:0;
+      z-index:999;
+      padding:10px 14px;
+      background: rgba(255,193,7,.12);
+      border-bottom:1px solid rgba(255,193,7,.45);
+      backdrop-filter: blur(10px);
+      box-shadow:
+        0 10px 40px rgba(0,0,0,.55),
+        0 0 40px rgba(255,193,7,.15);
+    }
+    .beta-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      gap:14px;
+      font-size:14.5px;
+      line-height:1.45;
+    }
+    .beta-pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:6px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,193,7,.6);
+      background: rgba(0,0,0,.25);
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size:12px;
+      white-space:nowrap;
+      box-shadow: 0 0 16px rgba(255,193,7,.25);
+    }
+    .beta-text{
+      color:rgba(255,255,255,.9);
+    }
+    .beta-text span{
+      color:rgba(255,255,255,.7);
+    }
+    @media (max-width: 920px){
+      .beta-inner{
+        align-items:flex-start;
+      }
+      .beta-text{
+        font-size:14px;
+        line-height:1.5;
+      }
+    }
+
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      padding:10px 12px;
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border-radius:999px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      position:sticky; top:14px; z-index:5;
+    }
+    .brand{display:flex; align-items:center; gap:14px; padding-left:6px}
+    .brand img{width:70px; height:70px;(--stroke)}
+    .brand b{letter-spacing:.2px}
+    .nav{display:flex; gap:10px; align-items:center}
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      text-decoration:none;
+      font-weight:600;
+      color:var(--text);
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      white-space:nowrap;
+    }
+    .chip:hover{transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.2)}
+    .chip.primary{
+      border-color: rgba(168,85,247,.55);
+      background: linear-gradient(90deg, rgba(168,85,247,.28), rgba(96,165,250,.18));
+    }
+    .chip.secondary{
+      border-color: rgba(96,165,250,.6);
+      background: linear-gradient(90deg, rgba(96,165,250,.35), rgba(34,197,94,.12));
+      box-shadow: 0 0 18px rgba(96,165,250,.35);
+    }
+
+    .support-card{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+    }
+
+    .support-img{
+      max-width:1920px;
+      width:100%;
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.14);
+      display:block;
+    }
+    .support-card .cta-row{
+      margin-top:60px;
+      margin-bottom:16px;
+    }
+    .support-card p{
+      margin:0;
+      line-height:1.3;
+    }
+
+    .hero{
+      margin-top:26px;
+      border-radius: var(--radius2);
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(700px 300px at 20% 10%, rgba(168,85,247,.35), transparent 60%),
+        radial-gradient(700px 350px at 80% 0%, rgba(96,165,250,.22), transparent 65%),
+        radial-gradient(600px 350px at 60% 100%, rgba(34,197,94,.16), transparent 60%);
+      filter: blur(10px);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .hero-inner{
+      position:relative;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:18px;
+      padding:28px;
+      align-items:center;
+    }
+    @media (max-width: 920px){
+      .hero-inner{grid-template-columns:1fr; padding:22px}
+    }
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color:var(--muted);
+      font-weight:600;
+      letter-spacing:.2px;
+      width:fit-content;
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size: 44px;
+      line-height:1.05;
+      letter-spacing:.3px;
+    }
+    @media (max-width: 920px){ h1{font-size: 38px} }
+    .sub{color:var(--muted); font-size:17px; line-height:1.55; max-width:52ch}
+    .cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 16px;
+      border-radius:14px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      text-decoration:none;
+      font-weight:800;
+      letter-spacing:.2px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.22)}
+    .btn.primary{
+      border-color: rgba(168,85,247,.7);
+      background: linear-gradient(90deg, rgba(168,85,247,.35), rgba(96,165,250,.22));
+    }
+    .btn.green{
+      border-color: rgba(34,197,94,.55);
+      background: linear-gradient(90deg, rgba(34,197,94,.25), rgba(96,165,250,.12));
+    }
+    .hero-art{
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.22);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero-art img{width:100%; height:auto; display:block}
+
+    .grid{
+      margin-top:20px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    @media (max-width: 920px){ .grid{grid-template-columns:1fr} }
+    .card{
+      border-radius: var(--radius);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+      padding:16px 16px 14px;
+    }
+    .card h3{margin:4px 0 6px; font-size:16px}
+    .card p{margin:0; color:var(--muted); line-height:1.5; font-size:14.5px}
+
+    .section{
+      margin-top:26px;
+      border-radius: var(--radius2);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      overflow:hidden;
+      box-shadow: 0 16px 50px rgba(0,0,0,.45);
+    }
+    .section-inner{padding:22px}
+    .section h2{margin:0 0 10px; font-size:22px}
+
+    footer{
+      margin-top:26px;
+      color:var(--muted2);
+      font-size:13px;
+      text-align:center;
+    }
+
+    /* =========================
+       PLANS (FREE vs PREMIUM)
+    ========================= */
+    .plans{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    @media (max-width: 920px){
+      .plans{grid-template-columns:1fr}
+    }
+
+    .plan{
+      border-radius: var(--radius);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+      padding:18px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .plan::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(500px 220px at 15% 10%, rgba(168,85,247,.22), transparent 60%),
+        radial-gradient(520px 240px at 85% 0%, rgba(96,165,250,.14), transparent 65%),
+        radial-gradient(520px 260px at 70% 100%, rgba(34,197,94,.10), transparent 60%);
+      filter: blur(10px);
+      opacity:.75;
+      pointer-events:none;
+    }
+
+    .plan-inner{position:relative}
+
+    .plan-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:10px;
+    }
+
+    .plan-title{
+      margin:0;
+      font-size:18px;
+      letter-spacing:.2px;
+    }
+
+    .plan-price{
+      text-align:right;
+      font-weight:950;
+      letter-spacing:.2px;
+      line-height:1.05;
+    }
+    .plan-price b{
+      font-size:38px;
+      letter-spacing:.3px;
+    }
+    .plan-price span{
+      display:block;
+      margin-top:6px;
+      font-size:13.5px;
+      font-weight:900;
+      color: rgba(255,255,255,.72);
+      text-transform: uppercase;
+      letter-spacing:.12em;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.22);
+      color:rgba(255,255,255,.86);
+      font-weight:900;
+      font-size:14px;
+      letter-spacing:.2px;
+      width:fit-content;
+      box-shadow: 0 10px 24px rgba(0,0,0,.30);
+    }
+
+    .badge.free{
+      border-color: rgba(96,165,250,.55);
+      background: linear-gradient(90deg, rgba(96,165,250,.22), rgba(255,255,255,.06));
+      box-shadow: 0 0 18px rgba(96,165,250,.18), 0 10px 24px rgba(0,0,0,.30);
+    }
+    .badge.premium{
+      border-color: rgba(168,85,247,.75);
+      background: linear-gradient(90deg, rgba(168,85,247,.30), rgba(96,165,250,.16));
+      box-shadow: 0 0 26px rgba(168,85,247,.22), 0 10px 24px rgba(0,0,0,.30);
+    }
+
+    .plan:not(.featured) .plan-price b{
+      color: rgba(255,255,255,.95);
+      filter: drop-shadow(0 0 10px rgba(96,165,250,.15));
+    }
+
+    .plan.featured{
+      border-color: rgba(168,85,247,.55);
+      box-shadow:
+        0 16px 45px rgba(0,0,0,.45),
+        0 0 0 1px rgba(168,85,247,.22),
+        0 0 60px rgba(168,85,247,.10);
+      transform: translateY(-2px);
+    }
+
+    .plan.featured::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius: var(--radius);
+      pointer-events:none;
+      box-shadow: inset 0 0 0 1px rgba(168,85,247,.14);
+    }
+
+    .plan.featured .plan-price b{
+      background: linear-gradient(90deg, rgba(255,255,255,.95), rgba(96,165,250,.90));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 0 14px rgba(96,165,250,.18));
+    }
+
+    .plan.featured .plan-price span{
+      color: rgba(255,255,255,.78);
+    }
+
+    .plan.free-featured{
+      border-color: rgba(96,165,250,.28);
+      box-shadow:
+        0 18px 55px rgba(0,0,0,.50),
+        0 0 0 1px rgba(96,165,250,.28),
+        0 0 70px rgba(96,165,250,.18);
+      transform: translateY(-2px);
+    }
+
+    .plan.free-featured::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius: var(--radius);
+      pointer-events:none;
+      box-shadow:
+        inset 0 0 0 1px rgba(96,165,250,.18),
+        inset 0 0 24px rgba(96,165,250,.06);
+    }
+
+    .plan.free-featured::before{
+      background:
+        radial-gradient(520px 240px at 15% 10%, rgba(96,165,250,.22), transparent 60%),
+        radial-gradient(520px 240px at 85% 0%, rgba(96,165,250,.14), transparent 65%),
+        radial-gradient(520px 260px at 70% 100%, rgba(34,197,94,.06), transparent 60%);
+    }
+
+    .plan-desc{
+      margin:10px 0 12px;
+      color:var(--muted);
+      line-height:1.55;
+      font-size:14.5px;
+      max-width:72ch;
+    }
+
+    .bullets{
+      margin:0;
+      padding-left:18px;
+      color:var(--muted);
+      line-height:1.55;
+      font-size:14.5px;
+    }
+    .bullets li{margin:8px 0}
+    .bullets b{color:var(--text)}
+
+    .note{
+      margin-top:12px;
+      padding:10px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color:var(--muted2);
+      font-size:13px;
+      line-height:1.5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       GLOBAL TOP BETA BANNER
+  ========================= -->
+  <div class="beta-banner">
+    <div class="beta-inner">
+      <span class="beta-pill">🚧 BETA</span>
+      <div class="beta-text">
+        <b>Beta Phase Notice</b> —
+        The bot is currently in <b>beta until February 27, 2026</b>.
+        <b>All data will be wiped before final release.</b>
+        Full launch: <b>March 1, 2026</b>.
+        <span>Feel free to test everything — just don’t rely on current stats yet.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <img src="assets/bot-icon.png" alt="Bot icon" />
+        <div>
+          <b>Sales LeaderBoard Bot</b><br>
+          <span style="color:var(--muted2); font-size:12.5px;">FiveM sales logs → live leaderboard + support inbox</span>
+        </div>
+        <a class="chip primary" href="https://tinyurl.com/SalesLeaderBoard" target="_blank" rel="noopener" style="margin-left:14px;">
+          Get the Bot
+        </a>
+      </div>
+
+      <div class="nav">
+        <a class="chip secondary" href="/index">Home</a>
+        <a class="chip" href="/features">Features</a>
+        <a class="chip" href="/setup">Setup</a>
+        <a class="chip" href="/support">Support</a>
+      </div>
+    </div>
+
+    <section class="hero" id="top">
+      <div class="hero-inner">
+        <div>
+          <div class="kicker">🚀 Self-Hosted • Free Trial Available • Built for FiveM business owners</div>
+          <h1>Sales LeaderBoard Bot</h1>
+          <p class="sub">
+            A quality-of-life Discord bot that tracks sales, ranks top sellers, posts a live leaderboard, and provides support via DM.
+          </p>
+
+          <div class="cta-row">
+            <a class="btn green" href="/setup#main-setup">⚙️ Quick Setup</a>
+            <a class="btn" href="#video">🎥 Video Tutorial</a>
+          </div>
+
+          <p style="margin:14px 0 0; color:var(--muted2); line-height:1.55;">
+            Contributions help cover hosting + ongoing development. Thank you for supporting the project.
+          </p>
+        </div>
+
+        <div class="hero-art">
+          <img src="assets/intro-hero.png" alt="Sales LeaderBoard Bot intro graphic" />
+        </div>
+      </div>
+    </section>
+
+    <section class="grid" id="features">
+      <div class="card">
+        <h3>🧾 Sales Tracking</h3>
+        <p>Automatically tracks paid invoices and keeps your business stats organized.</p>
+      </div>
+      <div class="card">
+        <h3>📈 Live Leaderboard</h3>
+        <p>Tracks sales from your “Invoice Paid” embeds and updates a live leaderboard automatically.</p>
+      </div>
+      <div class="card">
+        <h3>🏦 Bonus Pool + Payouts</h3>
+        <p>Optional bonus pool tracking so your team can see totals and standings at a glance.</p>
+      </div>
+    </section>
+
+    <section class="section" id="pricing">
+      <div class="section-inner">
+        <div class="kicker">💳 Plans • Free vs Premium</div>
+        <h2 style="margin-top:10px;">Choose what fits your server</h2>
+        <p style="margin:0; color:var(--muted); line-height:1.55;">
+          Free gives you the essentials. Premium unlocks the live leaderboard tools and payout features.
+          Your sales history continues collecting in the background either way.
+        </p>
+
+        <!-- ✅ BETA NOTICE (BIGGER) REMOVED (now shown at top) -->
+
+        <div class="plans" style="margin-top:16px;">
+
+          <!-- FREE -->
+          <div class="plan free-featured">
+            <div class="plan-inner">
+              <div class="plan-head">
+                <div>
+                  <div class="badge free">🆓 Free</div>
+                  <h3 class="plan-title" style="margin-top:10px;">Sales Summary (Free)</h3>
+                </div>
+                <div class="plan-price">
+                  <b>$0</b>
+                  <span>forever</span>
+                </div>
+              </div>
+
+              <p class="plan-desc">
+                Perfect for small servers that want clean, automatic sales totals without the advanced leaderboard tools.
+              </p>
+
+              <ul class="bullets">
+                <li><b>Tracks invoices paid</b> and updates totals automatically</li>
+                <li><b>Total money made</b> (sales total)</li>
+                <li><b>Top sales person</b> (best seller summary)</li>
+                <li><b>Background sales history log</b> continues collecting (used by Premium tools later)</li>
+              </ul>
+
+              <div class="note">
+                🔒 <b>History access is Premium</b> — your sales history keeps recording in Free mode, but viewing charts/history is unlocked in Premium.
+              </div>
+            </div>
+          </div>
+
+          <!-- PREMIUM (FEATURED) -->
+          <div class="plan featured">
+            <div class="plan-inner">
+              <div class="plan-head">
+                <div>
+                  <div class="badge premium">⭐ Premium</div>
+                  <h3 class="plan-title" style="margin-top:10px;">Full Live Leaderboard Suite</h3>
+                </div>
+                <div class="plan-price">
+                  <b>$8.00</b>
+                  <span>per month</span>
+                </div>
+              </div>
+
+              <p class="plan-desc">
+                Built for busy FiveM businesses — live rankings, bonus payouts, employee tracking, and an auto-updating sales chart.
+              </p>
+
+              <ul class="bullets">
+                <li><b>Live Leaderboard</b> showing the <b>Top 3 sellers</b></li>
+                <li><b>Bonus payouts</b> options for <b>1st / 2nd / 3rd</b></li>
+                <li><b>Live Invoice Tracker</b> per employee:
+                  <ul style="margin:8px 0 0; padding-left:18px; color:var(--muted);">
+                    <li>Total sales invoices per employee</li>
+                    <li>Total sales dollars per employee</li>
+                  </ul>
+                </li>
+                <li><b>Company totals</b> at a glance:
+                  <ul style="margin:8px 0 0; padding-left:18px; color:var(--muted);">
+                    <li>Total invoice count</li>
+                    <li>Grand total of all invoices</li>
+                  </ul>
+                </li>
+                <li><b>Live Sales Chart</b> that updates every <b>30 minutes</b></li>
+                <li><b>Ongoing sales history log</b> (chart + history keep running in the background even if you downgrade to Free)</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="y"></span> Sales LeaderBoard Bot • Built by StoogeCurly • Self-hosted project
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
