@@ -83,20 +83,11 @@
       white-space:nowrap;
       box-shadow: 0 0 16px rgba(255,193,7,.25);
     }
-    .beta-text{
-      color:rgba(255,255,255,.9);
-    }
-    .beta-text span{
-      color:rgba(255,255,255,.7);
-    }
+    .beta-text{ color:rgba(255,255,255,.9); }
+    .beta-text span{ color:rgba(255,255,255,.7); }
     @media (max-width: 920px){
-      .beta-inner{
-        align-items:flex-start;
-      }
-      .beta-text{
-        font-size:14px;
-        line-height:1.5;
-      }
+      .beta-inner{ align-items:flex-start; }
+      .beta-text{ font-size:14px; line-height:1.5; }
     }
 
     .topbar{
@@ -134,30 +125,6 @@
       border-color: rgba(96,165,250,.6);
       background: linear-gradient(90deg, rgba(96,165,250,.35), rgba(34,197,94,.12));
       box-shadow: 0 0 18px rgba(96,165,250,.35);
-    }
-
-    .support-card{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-    }
-
-    .support-img{
-      max-width:1920px;
-      width:100%;
-      border-radius: var(--radius);
-      border:1px solid rgba(255,255,255,.14);
-      display:block;
-    }
-    .support-card .cta-row{
-      margin-top:60px;
-      margin-bottom:16px;
-    }
-    .support-card p{
-      margin:0;
-      line-height:1.3;
     }
 
     .hero{
@@ -245,17 +212,99 @@
       display:grid;
       grid-template-columns: repeat(3, 1fr);
       gap:14px;
+      align-items:stretch;
     }
     @media (max-width: 920px){ .grid{grid-template-columns:1fr} }
+
     .card{
       border-radius: var(--radius);
       border:1px solid var(--stroke);
       background: rgba(255,255,255,.06);
       box-shadow: 0 12px 30px rgba(0,0,0,.35);
       padding:16px 16px 14px;
+      display:flex;
+      flex-direction:column;
+      height:100%;
     }
     .card h3{margin:4px 0 6px; font-size:16px}
     .card p{margin:0; color:var(--muted); line-height:1.5; font-size:14.5px}
+
+    /* =========================
+       FEATURE CARD THUMBNAILS (UPDATED)
+    ========================= */
+    .card-media{
+      width:100%;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      overflow:hidden;
+      background: rgba(0,0,0,.22);
+      margin-bottom:10px;
+
+      aspect-ratio: 16 / 9;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .card-media img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+    }
+
+    /* =========================
+       IMAGE LIGHTBOX (CLICK TO ZOOM)
+    ========================= */
+    .zoomable{ cursor: zoom-in; }
+
+    .lightbox{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(8px);
+    }
+    .lightbox.open{ display:flex; }
+
+    .lightbox-inner{
+      width:min(1200px, 96vw);
+      max-height:90vh;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(10,10,20,.55);
+      box-shadow: 0 30px 100px rgba(0,0,0,.65);
+      overflow:hidden;
+      position:relative;
+    }
+    .lightbox-img{
+      width:100%;
+      height:auto;
+      max-height:90vh;
+      display:block;
+      object-fit: contain;
+      background: rgba(0,0,0,.25);
+    }
+    .lightbox-close{
+      position:absolute;
+      top:10px;
+      right:10px;
+      width:40px;
+      height:40px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.35);
+      color: rgba(255,255,255,.9);
+      font-weight:900;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .lightbox-close:hover{ background: rgba(0,0,0,.5); }
 
     .section{
       margin-top:26px;
@@ -468,9 +517,6 @@
 
 <body>
 
-  <!-- =========================
-       GLOBAL TOP BETA BANNER
-  ========================= -->
   <div class="beta-banner">
     <div class="beta-inner">
       <span class="beta-pill">🚧 BETA</span>
@@ -532,16 +578,27 @@
 
     <section class="grid" id="features">
       <div class="card">
+        <div class="card-media">
+          <img class="zoomable" src="assets/invoices/Invoice-tracker.png" alt="Sales tracking preview" />
+        </div>
         <h3>🧾 Sales Tracking</h3>
         <p>Automatically tracks paid invoices and keeps your business stats organized.</p>
       </div>
+
       <div class="card">
-        <h3>📈 Live Leaderboard</h3>
-        <p>Tracks sales from your “Invoice Paid” embeds and updates a live leaderboard automatically.</p>
+        <div class="card-media">
+          <img class="zoomable" src="assets/sales-chart/sales-chart.png" alt="Sales chart preview" />
+        </div>
+        <h3>📊 Sales Chart</h3>
+        <p>Graphs sales over time so you can see history, highs/lows, and trends at a glance.</p>
       </div>
+
       <div class="card">
-        <h3>🏦 Bonus Pool + Payouts</h3>
-        <p>Optional bonus pool tracking so your team can see totals and standings at a glance.</p>
+        <div class="card-media">
+          <img class="zoomable" src="assets/leaderboard/live-tracker-full-w-bonus.png" alt="Live leaderboard preview" />
+        </div>
+        <h3>📈 Live Leaderboard + Bonus Pool</h3>
+        <p>Tracks sales, ranks the top 3, and calculates fair bonuses by sales + invoice count.</p>
       </div>
     </section>
 
@@ -553,8 +610,6 @@
           Free gives you the essentials. Premium unlocks the live leaderboard tools and payout features.
           Your sales history continues collecting in the background either way.
         </p>
-
-        <!-- ✅ BETA NOTICE (BIGGER) REMOVED (now shown at top) -->
 
         <div class="plans" style="margin-top:16px;">
 
@@ -637,8 +692,55 @@
     </footer>
   </div>
 
+  <!-- Lightbox markup -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <div class="lightbox-inner" role="dialog" aria-modal="true" aria-label="Image preview">
+      <button class="lightbox-close" type="button" aria-label="Close">✕</button>
+      <img id="lightboxImg" class="lightbox-img" alt="Preview" />
+    </div>
+  </div>
+
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    // Click-to-zoom for images with .zoomable
+    (function(){
+      const lb = document.getElementById("lightbox");
+      const lbImg = document.getElementById("lightboxImg");
+      const closeBtn = lb.querySelector(".lightbox-close");
+
+      function openLightbox(src, alt){
+        lbImg.src = src;
+        lbImg.alt = alt || "Preview";
+        lb.classList.add("open");
+        lb.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeLightbox(){
+        lb.classList.remove("open");
+        lb.setAttribute("aria-hidden", "true");
+        lbImg.src = "";
+        document.body.style.overflow = "";
+      }
+
+      document.addEventListener("click", (e) => {
+        const img = e.target.closest("img.zoomable");
+        if (img) openLightbox(img.src, img.alt);
+      });
+
+      closeBtn.addEventListener("click", closeLightbox);
+
+      // Click outside the image closes
+      lb.addEventListener("click", (e) => {
+        if (e.target === lb) closeLightbox();
+      });
+
+      // ESC closes
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && lb.classList.contains("open")) closeLightbox();
+      });
+    })();
   </script>
 </body>
 </html>
